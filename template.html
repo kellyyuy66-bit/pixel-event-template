@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人工智能创新协会 · 2026 全体大会</title>
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+<!-- ================= HUD ================= -->
+<div class="hud" id="hud">
+  <div class="plate">
+    <canvas class="avatar" id="avatarBox" width="16" height="16"></canvas>
+    <div class="who">
+      <div class="nm" id="hudName">协会成员</div>
+      <div class="lv" id="hudLv">Lv.{year} · 大会进度</div>
+      <div class="xpbar"><i id="xpFill"></i></div>
+    </div>
+  </div>
+  <div class="tools">
+    <button class="tool" id="btnSound" title="音效开关"></button>
+    <button class="tool" id="btnHelp" title="操作说明"></button>
+    <button class="tool" id="btnReset" title="重置进度"></button>
+  </div>
+</div>
+
+<!-- ================= BOOT ================= -->
+<section class="screen active" id="screen-boot">
+  <div class="bootwrap">
+    <div class="pframe">
+      <div class="pframe-inner">
+        <div class="boot-head" style="padding:18px 24px 0">
+          <canvas id="bootIcon" width="16" height="16" style="width:34px;height:34px"></canvas>
+          <div class="boot-title ot" style="--ow:2px">系统提示：大会数据已加载</div>
+          <div class="boot-badge" style="margin-left:auto">v{year}</div>
+        </div>
+        <div class="boot-body">
+          <div class="boot-art"><canvas id="bootArt" width="48" height="48"></canvas></div>
+          <div class="boot-text">
+            <div class="boot-line" id="bootL1"><b>人工智能创新协会</b> · {year} 全体大会</div>
+            <div class="boot-line" id="bootL2">正在载入大会环节与嘉宾信息……</div>
+            <div class="loadrow">
+              <div class="loadbar"><i id="loadFill"></i></div>
+              <div class="loadpct" id="loadPct">0 %</div>
+            </div>
+            <div class="boot-log" id="bootLog"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HERO ================= -->
+<section class="screen" id="screen-hero">
+  <canvas id="sceneCanvas"></canvas>
+  <canvas id="cloudCanvas"></canvas>
+  <div class="sky-wash"></div>
+  <div class="scan"></div>
+  <div class="hero">
+    <div class="eyebrow ot" style="--ow:1px;--oc:#5b7590">黄 河 科 技 学 院</div>
+    <h1 class="ttl ot" style="--ow:3px">人工智能创新协会</h1>
+    <div class="ttl-sub ot" style="--ow:2px">{year} · 全体大会</div>
+    <div class="hero-meta">{date} · {venue} · 全体成员</div>
+    <div class="startwrap">
+      <button class="pbtn" id="btnStart" style="font-size:24px;letter-spacing:6px;padding:16px 44px">START</button>
+      <svg class="cur-arrow" viewBox="0 0 13 15" aria-hidden="true">
+        <path d="M0 0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1H7v1H6v1H5v1H4v1H3v1H2v-1H1v-2H0z" fill="#ffffff" stroke="#2b2f4a" stroke-width="1.6" stroke-linejoin="miter"/>
+        <path d="M2 3h1v1h1v1h1v1h1v1H4v1H3z" fill="#2b2f4a" opacity=".55"/>
+      </svg>
+    </div>
+    <div class="hint">点击 START · 或按 Enter 开始</div>
+    <div class="hero-tip" id="heroTip"></div>
+  </div>
+  <div class="speech" id="speech"></div>
+</section>
+
+<!-- ================= QUESTS ================= -->
+<section class="screen scroll" id="screen-quests">
+  <div class="quest-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker">QUEST BOARD</div>
+        <h2>大会流程</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span>已完成</span><span id="qProgTxt">0 / 0</span></div>
+        <div class="qbar"><i id="qProgFill"></i></div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div style="display:flex;gap:16px;justify-content:center;margin-top:52px;flex-wrap:wrap">
+      <button class="pbtn ghost" id="btnBackHero">返回封面</button>
+      <button class="pbtn rose" id="btnEnding">查看结语</button>
+    </div>
+    <div style="text-align:center;margin-top:22px;font-size:12px;color:#5b7590;letter-spacing:2px">
+      点击任意环节查看详情 · 完成后进度会自动保存
+    </div>
+  </div>
+</section>
+
+<!-- ================= TALENT SHOW ================= -->
+<section class="screen scroll" id="screen-show">
+  <div class="show-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker">THE SHOW · 环节 05</div>
+        <h2>才艺展示</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span>环节 05</span><span id="showCount">4 个节目</span></div>
+        <div class="qbar"><i id="showFill" style="width:100%"></i></div>
+      </div>
+    </div>
+    <div class="show-intro" id="showIntro">灯光一暗，舞台交给四位同学。</div>
+    <div class="showgrid" id="showGrid"></div>
+    <div class="show-foot">
+      <button class="pbtn ghost" id="btnShowBack">返回流程</button>
+      <button class="pbtn" id="btnShowDone">标记完成</button>
+    </div>
+    <div class="show-tip">点任意一位同学看他的单独页面 · 按 Esc 或点「返回流程」回到大会流程</div>
+  </div>
+</section>
+
+<!-- ================= PERFORMER (单人整页) ================= -->
+<section class="screen scroll" id="screen-perf">
+  <div class="perf-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker" id="perfKicker">THE SHOW · 环节 05</div>
+        <h2 id="perfTitle">单人页面</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span id="perfRoleTop">唱歌</span><span id="perfIdxTxt">01 / 04</span></div>
+        <div class="qbar"><i id="perfFill" style="width:25%"></i></div>
+      </div>
+    </div>
+    <div class="perf-body">
+      <div class="perf-stage">
+        <span class="perf-no" id="perfNo">01</span>
+        <canvas class="pfig" id="perfFig"></canvas>
+      </div>
+      <div class="perf-info">
+        <div class="perf-name" id="perfName">——</div>
+        <div class="perf-role" id="perfRole">——</div>
+        <p class="perf-desc" id="perfDesc">——</p>
+        <div class="perf-chips" id="perfChips"></div>
+      </div>
+    </div>
+    <div class="perf-nav-h">其他同学 · CAST</div>
+    <div class="perf-nav" id="perfNav"></div>
+    <div class="show-foot">
+      <button class="pbtn ghost" id="btnPerfPrev">上一位</button>
+      <button class="pbtn ghost" id="btnPerfBack">返回才艺展示</button>
+      <button class="pbtn" id="btnPerfNext">下一位</button>
+    </div>
+    <div class="show-tip">按 ← → 切换同学 · 按 Esc 或点「返回才艺展示」回到节目列表</div>
+  </div>
+</section>
+
+<!-- ================= ABOUT (协会介绍整页) ================= -->
+<section class="screen scroll" id="screen-about">
+  <div class="about-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker">ABOUT US · 环节 01</div>
+        <h2>协会介绍</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span>{org}</span><span>4 个部门</span></div>
+        <div class="qbar"><i style="width:100%"></i></div>
+      </div>
+    </div>
+    <div class="about-hero">
+      <div class="about-logo"><img id="aboutLogo" alt="人工智能创新协会 会徽" src="__LOGO_SRC__"></div>
+      <div class="about-txtcol">
+        <p class="about-lead" id="aboutLead"></p>
+        <p class="about-body" id="aboutBody1"></p>
+        <p class="about-body" id="aboutBody2"></p>
+        <div class="about-keys" id="aboutIdeas"></div>
+        <div class="about-keys" id="aboutKeys" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <div class="about-sect">
+      <div class="about-h">聚焦领域 · FIELDS</div>
+      <div class="fieldrow" id="aboutFields"></div>
+    </div>
+
+    <div class="about-sect">
+      <div class="about-h">协会部门 · DEPARTMENTS</div>
+      <div class="deptgrid" id="aboutDepts"></div>
+    </div>
+
+    <div class="show-foot">
+      <button class="pbtn ghost" id="btnAboutBack">返回流程</button>
+      <button class="pbtn" id="btnAboutDone">标记完成</button>
+    </div>
+    <div class="show-tip">按 Esc 或点「返回流程」回到大会流程</div>
+  </div>
+</section>
+
+<!-- ================= GAMES (趣味互动游戏 整页) ================= -->
+<section class="screen scroll" id="screen-games">
+  <div class="show-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker">THE GAME · 环节 07</div>
+        <h2>趣味互动游戏</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span>环节 07</span><span id="gamesCount">4 个游戏</span></div>
+        <div class="qbar"><i style="width:100%"></i></div>
+      </div>
+    </div>
+    <div class="show-intro" id="gamesIntro">另一波人不打游戏，跟着主持人做趣味互动小游戏。</div>
+    <div class="ggrid" id="gamesGrid"></div>
+    <div class="show-foot">
+      <button class="pbtn ghost" id="btnGamesBack">返回流程</button>
+      <button class="pbtn" id="btnGamesDone">标记完成</button>
+    </div>
+    <div class="show-tip">点任意一个游戏看玩法和现场演示 · 按 Esc 或点「返回流程」回到大会流程</div>
+  </div>
+</section>
+
+<!-- ================= GAME (单个游戏 整页) ================= -->
+<section class="screen scroll" id="screen-game">
+  <div class="game-wrap">
+    <div class="qhead">
+      <div class="qhead-l">
+        <div class="kicker" id="gameKicker">THE GAME · 环节 07</div>
+        <h2 id="gameTitle">游戏</h2>
+      </div>
+      <div class="qhead-r">
+        <div class="qprog-top"><span id="gameSubTop">玩法</span><span id="gameIdxTxt">01 / 04</span></div>
+        <div class="qbar"><i id="gameFill" style="width:25%"></i></div>
+      </div>
+    </div>
+    <div class="game-body">
+      <div class="game-left">
+        <div class="game-head">
+          <canvas class="gicon-lg" id="gIcon"></canvas>
+          <div>
+            <div class="gtitle" id="gTitle">——</div>
+            <div class="gsubtitle" id="gSubtitle">——</div>
+          </div>
+        </div>
+        <p class="gdesc" id="gDesc">——</p>
+        <div class="g-h">怎么玩 · HOW TO PLAY</div>
+        <ul class="gsteps" id="gSteps"></ul>
+        <div class="gchips" id="gChips"></div>
+      </div>
+      <div class="game-right" id="gPlay"></div>
+    </div>
+    <div class="gnav-h">其他游戏 · MORE GAMES</div>
+    <div class="gnav" id="gNav"></div>
+    <div class="show-foot">
+      <button class="pbtn ghost" id="btnGamePrev">上一个</button>
+      <button class="pbtn ghost" id="btnGameBack">返回游戏列表</button>
+      <button class="pbtn" id="btnGameNext">下一个</button>
+    </div>
+    <div class="show-tip">按 ← → 切换游戏 · 按 Esc 或点「返回游戏列表」回到游戏列表</div>
+  </div>
+</section>
+
+<!-- ================= ENDING ================= -->
+<section class="screen" id="screen-end">
+  <canvas id="endSceneCanvas"></canvas>
+  <canvas id="endFxCanvas"></canvas>
+  <div class="veil"></div>
+  <div class="sky-wash"></div>
+  <div class="scan"></div>
+  <div class="end-wrap">
+    <div class="end-ttl ot" style="--ow:3px">谢谢观看</div>
+    <div class="end-org">{org} · 人工智能创新协会</div>
+    <div class="end-line" id="endLine">8 / 8 环节已全部完成</div>
+    <div class="end-plate pframe">
+      <div class="pframe-inner" style="padding:14px 22px">
+        <div class="rowk" style="color:#6b5a34;font-size:12px">{date} · 全体大会 · 合影留念</div>
+      </div>
+    </div>
+    <div class="end-btns">
+      <button class="pbtn ghost" id="btnBackBoard">返回流程</button>
+      <button class="pbtn" id="btnAgain">重新开始</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="modal">
+  <div class="mbox pframe">
+    <div class="pframe-inner" style="display:flex;flex-direction:column;max-height:88vh">
+      <div class="mhead">
+        <canvas id="mIcon" width="16" height="16"></canvas>
+        <div class="mh-txt">
+          <div class="mh-n" id="mNum">环节 01</div>
+          <div class="mh-name" id="mName">环节名称</div>
+          <div class="mh-tag" id="mTag">标签</div>
+        </div>
+      </div>
+      <div class="mbody">
+        <div class="mfig">
+          <div class="gal-tabs" id="mGalTabs" hidden></div>
+          <div class="mfig-stage" id="mFigStage"></div>
+          <div class="mfig-cap" id="mFigCap"></div>
+        </div>
+        <div class="mtxt">
+          <p class="mdesc" id="mDesc"></p>
+          <ul class="mlist" id="mList"></ul>
+          <div class="mchips" id="mChips"></div>
+        </div>
+      </div>
+      <div class="mfoot">
+        <div class="stamp" id="mStamp">已完成 ✓</div>
+        <button class="pbtn ghost sm" id="mClose">返回</button>
+        <button class="pbtn sm" id="mDone">标记完成</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HELP MODAL ================= -->
+<div class="modal" id="helpModal">
+  <div class="mbox pframe" style="width:min(520px,92vw)">
+    <div class="pframe-inner">
+      <div class="mhead" style="padding:22px 28px 16px">
+        <div class="mh-txt">
+          <div class="mh-n">操作说明</div>
+          <div class="mh-name" style="font-size:24px">快捷操作</div>
+        </div>
+      </div>
+      <div class="mbody" style="padding:22px 28px">
+        <div class="helpgrid">
+          <div><span class="key">Enter</span><span>开始 / 确认</span></div>
+          <div><span class="key">Esc</span><span>关闭窗口 / 返回</span></div>
+          <div><span class="key">← →</span><span>在环节之间切换</span></div>
+          <div><span class="key">M</span><span>音效开关</span></div>
+          <div><span class="key">R</span><span>重置全部进度</span></div>
+        </div>
+      </div>
+      <div class="mfoot" style="justify-content:center">
+        <button class="pbtn sm" id="helpClose">知道了</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 演示放大 ================= -->
+<div class="modal" id="zoomModal">
+  <div class="mbox pframe">
+    <div class="pframe-inner zoom-inner">
+      <div class="zoom-head">
+        <span class="zoom-tag" id="zoomTag">放大展示</span>
+        <button class="pbtn ghost sm" id="zoomClose">关闭 ✕</button>
+      </div>
+      <div class="zoom-stage" id="zoomStage"></div>
+      <div class="zoom-tip">按 Esc、点窗口外空白处，或点「关闭」退出放大</div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- 内容配置：全部文字 / 环节 / 人物 / 游戏都在 content/*.json
+     build.py 会把它们合并后替换掉下面这段占位；直接打开本文件时是空配置 -->
+<script id="cfg">
+window.__CFG__ = window.__CFG__ || {};
+</script>
+<script>
+/* =======================================================================
+   主办方活动页模板  ——  像素风交互页
+   ===================================================================== */
+(function(){
+'use strict';
+
+/* ---------- 读取 content/*.json 的内容配置 ---------- */
+var CFG     = window.__CFG__ || {};
+var META    = CFG.meta     || {};
+var UI      = CFG.ui       || {};
+var STAGES  = CFG.stages   || [];
+var LAWN    = CFG.lawn     || {};
+var QUIZ    = CFG.quiz     || [];
+var GARDENS = CFG.gardens  || [];
+var CMDS    = CFG.commands || [];
+var DONE_TXT = ((UI.modal||{}).doneBtn)||'标记完成';
+var UNDO_TXT = ((UI.modal||{}).undoBtn)||'取消完成';
+
+/* 把文案里的 {xxx} 占位符替换成真实值，例如 {num} / {n} / {done} / {total} / {name} */
+function tpl(s, map){
+  return String(s==null?'':s).replace(/\{(\w+)\}/g, function(m,k){
+    return (map && (k in map)) ? map[k] : m;
+  });
+}
+
+/* ---------- 错误自检（便于排查） ---------- */
+window.addEventListener('error', function(e){
+  try{
+    var t=document.getElementById('toast');
+    if(t){ t.textContent='⚠ '+(e.message||'unknown error'); t.classList.add('show'); }
+    document.title='ERR '+ (e.message||'unknown');
+  }catch(_e){}
+});
+
+/* ---------- 通用工具 ---------- */
+var $ = function(id){ return document.getElementById(id); };
+function makeRng(seed){
+  var s = seed >>> 0;
+  return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+}
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function pick(arr,r){ return arr[Math.floor(r()*arr.length)]; }
+
+/* =======================================================================
+   1. 像素图标
+   ===================================================================== */
+var OUT = '#2b2f4a';
+var ICONS = {
+  mic:{ pal:{o:OUT,b:'#fdf7ea',a:'#f0cf83'}, map:[
+    '................',
+    '.....oooo.......',
+    '....obbbbo......',
+    '....obbbbo......',
+    '....ob..bo......',
+    '....ob..bo......',
+    '....obbbbo......',
+    '....obbbbo......',
+    '.....oooo.......',
+    '...ooooooooo....',
+    '.......o........',
+    '.......o........',
+    '....ooooooo.....',
+    '................',
+    '................',
+    '................']},
+  trophy:{ pal:{o:OUT,b:'#f0cf83',a:'#fdf7ea'}, map:[
+    '................',
+    '...oooooooo.....',
+    '...obbbbbbo.....',
+    '..oobbbbbboo....',
+    '..obobbbboabo...',
+    '..ob.obbo.abo...',
+    '...o.obbo.o.....',
+    '....obbbbo......',
+    '.....oooo.......',
+    '......oo........',
+    '......oo........',
+    '....oooooo......',
+    '...oooooooo.....',
+    '................',
+    '................',
+    '................']},
+  bubble:{ pal:{o:OUT,b:'#fdf7ea',a:'#9d90cf'}, map:[
+    '................',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..oboaaaaaaobo..',
+    '..obbbbbbbbbbo..',
+    '..obaaaaaaaobo..',
+    '..obbbbbbbbbbo..',
+    '..obaaaoooabbo..',
+    '..obbbbbbbbbbo..',
+    '..oooooooooooo..',
+    '......oo........',
+    '.....oo.........',
+    '....oo..........',
+    '................',
+    '................',
+    '................']},
+  person:{ pal:{o:OUT,b:'#9d90cf',a:'#fdf7ea'}, map:[
+    '................',
+    '......oooo......',
+    '.....obbbbo.....',
+    '.....obaabo.....',
+    '.....obbbbo.....',
+    '......oooo......',
+    '....oooooooo....',
+    '...obbbbbbbbo...',
+    '...obbaaaabbo...',
+    '...obbaaaabbo...',
+    '...obbbbbbbbo...',
+    '...obbbbbbbbo...',
+    '...oooooooooo...',
+    '................',
+    '................',
+    '................']},
+  note:{ pal:{o:OUT,b:'#e7a7c4',a:'#9d90cf'}, map:[
+    '................',
+    '........oooo....',
+    '........obbo....',
+    '........obbo....',
+    '........obbo....',
+    '........obbo....',
+    '........obbo....',
+    '........obbo....',
+    '........obbo....',
+    '..oooo..obbo....',
+    '.obbbbo.obbo....',
+    '.obbbbbobbo.....',
+    '.obbbbbbbo......',
+    '..obbbboo.......',
+    '...oooo.........',
+    '................']},
+  swords:{ pal:{o:OUT,b:'#c8d4e6',a:'#f0cf83'}, map:[
+    '................',
+    '.oo.........oo..',
+    '.obo.......obo..',
+    '..obo.....obo...',
+    '...obo...obo....',
+    '....obo.obo.....',
+    '.....obobo......',
+    '......ooo.......',
+    '.....ooooo......',
+    '....oa.o.ao.....',
+    '...oao...oao....',
+    '..oao.....oao...',
+    '.oao.......oao..',
+    '.oo.........oo..',
+    '................',
+    '................']},
+  camera:{ pal:{o:OUT,b:'#fdf7ea',a:'#f0cf83'}, map:[
+    '................',
+    '......oooo......',
+    '......oaao......',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..obbbbbbbbbbo..',
+    '..oboooooobbbo..',
+    '..oboobboobobo..',
+    '..oboobboobobo..',
+    '..oboooooobbbo..',
+    '..obbbbbbbbbbo..',
+    '..obbbbbbbbbbo..',
+    '..oooooooooooo..',
+    '................',
+    '................',
+    '................']},
+  group:{ pal:{o:OUT,b:'#8fd0dd'}, map:[
+    '................',
+    '................',
+    '................',
+    '................',
+    '.ooo..ooo..ooo..',
+    '.obo..obo..obo..',
+    '.obo..obo..obo..',
+    '.ooo..ooo..ooo..',
+    '.oooo.oooo.oooo.',
+    '.obbo.obbo.obbo.',
+    '.obbo.obbo.obbo.',
+    '.oooo.oooo.oooo.',
+    '................',
+    '................',
+    '................',
+    '................']},
+  snack:{ pal:{o:OUT,b:'#f2a6c0',a:'#fdf7ea'}, map:[
+    '................',
+    '........oo......',
+    '.......oo.......',
+    '...oooooooooo...',
+    '...oaaaaaaaao...',
+    '...obbbbbbbbo...',
+    '...obbbbbbbbo...',
+    '....obbbbbbo....',
+    '....obbbbbbo....',
+    '.....obbbbo.....',
+    '.....obbbbo.....',
+    '......oooo......',
+    '................',
+    '................',
+    '................',
+    '................']},
+  dice:{ pal:{o:OUT,b:'#fdf7ea'}, map:[
+    '................',
+    '................',
+    '...oooooooooo...',
+    '...obbbbbbbbo...',
+    '...oboobboobo...',
+    '...oboobboobo...',
+    '...obbbbbbbbo...',
+    '...oboobboobo...',
+    '...oboobboobo...',
+    '...obbbbbbbbo...',
+    '...oooooooooo...',
+    '................',
+    '................',
+    '................',
+    '................',
+    '................']},
+  building:{ pal:{o:OUT,b:'#fdf7ea',a:'#e7a7c4',c:'#9d90cf'}, map:[
+    '................',
+    '.......oo.......',
+    '......oaao......',
+    '.....oooooo.....',
+    '....obbbbbbo....',
+    '...obaaaaaabo...',
+    '...obbbbbbbbo...',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..obccbccbccbo..',
+    '..obccbccbccbo..',
+    '..obbbbbbbbbbo..',
+    '..obccbccbccbo..',
+    '..obccbccbccbo..',
+    '..oooooooooooo..',
+    '................']},
+  chip:{ pal:{o:OUT,b:'#dfe7f2',a:'#8fd0dd',c:'#f0cf83'}, map:[
+    '................',
+    '....o......o....',
+    '....o......o....',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..ob.oooooo.bo..',
+    '..ob.occcco.bo..',
+    '..ob.oco..co.bo.',
+    '..ob.oco..co.bo.',
+    '..ob.occcco.bo..',
+    '..ob.oooooo.bo..',
+    '..obbbbbbbbbbo..',
+    '..oooooooooooo..',
+    '....o......o....',
+    '....o......o....',
+    '................']},
+  clip:{ pal:{o:OUT,b:'#fdf7ea',a:'#9d90cf'}, map:[
+    '................',
+    '.....oooo.......',
+    '....obbbbo......',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..ob........bo..',
+    '..ob.aaaaaa.bo..',
+    '..ob........bo..',
+    '..ob.aaaaaa.bo..',
+    '..ob........bo..',
+    '..ob.aaaaaa.bo..',
+    '..obbbbbbbbbbo..',
+    '..oooooooooooo..',
+    '................',
+    '................',
+    '................']},
+  riddle:{ pal:{o:OUT,b:'#fdf7ea',a:'#8fd0dd'}, map:[
+    '................',
+    '................',
+    '..oooooooooooo..',
+    '..obbbbbbbbbbo..',
+    '..obbbbbbbbbbo..',
+    '..obbbbaabbbbo..',
+    '..obbbabbabbbo..',
+    '..obbbbbbabbbo..',
+    '..obbbbbabbbbo..',
+    '..obbbbbabbbbo..',
+    '..obbbbbbbbbbo..',
+    '..obbbbbabbbbo..',
+    '..obbbbbbbbbbo..',
+    '..oooooooooooo..',
+    '................',
+    '................']},
+  mouth:{ pal:{o:OUT,a:'#e07a9a'}, map:[
+    '................',
+    '................',
+    '................',
+    '....oooooooo....',
+    '...ooaaaaaaoo...',
+    '...oaaaaaaaao...',
+    '...oaaaaaaaao...',
+    '...oooooooooo...',
+    '...oaaaaaaaao...',
+    '...oaaaaaaaao...',
+    '...ooaaaaaaoo...',
+    '....oooooooo....',
+    '................',
+    '................',
+    '................',
+    '................']},
+  garden:{ pal:{o:OUT,b:'#e7a7c4',a:'#8abd74',c:'#8a6a4a'}, map:[
+    '.....oooooo.....',
+    '....ooaaaaoo....',
+    '...ooaaaaaaoo...',
+    '...oaaaaaaaao...',
+    '...oaaaaaaaao...',
+    '...ooaaaaaaoo...',
+    '....ooaaaaoo....',
+    '.....ooccoo.....',
+    '......occo......',
+    '.oooo.occo.oooo.',
+    '.obbo.occo.obbo.',
+    '.obbo.occo.obbo.',
+    '.oooo.oooo.oooo.',
+    '................',
+    '................',
+    '................']},
+  reverse:{ pal:{o:OUT,a:'#9d90cf',b:'#8fd0dd'}, map:[
+    '................',
+    '................',
+    '................',
+    '...........a....',
+    '..aaaaaaaaaaa...',
+    '..aaaaaaaaaaaa..',
+    '..aaaaaaaaaaa...',
+    '...........a....',
+    '................',
+    '....b...........',
+    '...bbbbbbbbbbb..',
+    '..bbbbbbbbbbbb..',
+    '...bbbbbbbbbbb..',
+    '....b...........',
+    '................',
+    '................']}
+};
+
+function drawIcon(cv, key){
+  var ic = ICONS[key]; if(!ic) return;
+  var rows = ic.map, h = rows.length, w = rows[0].length;
+  cv.width = w; cv.height = h;
+  var ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.clearRect(0,0,w,h);
+  for(var y=0;y<h;y++){
+    var row = rows[y];
+    for(var x=0;x<w;x++){
+      var c = ic.pal[row.charAt(x)];
+      if(c){ ctx.fillStyle = c; ctx.fillRect(x,y,1,1); }
+    }
+  }
+}
+
+/* 头像 */
+function drawAvatar(cv){
+  var P = 16;
+  cv.width=P; cv.height=P;
+  var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+  var R=function(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(x,y,w,h);};
+  R(0,0,P,P,'#dbeaf5');
+  R(0,0,P,5,'#eadff2');
+  // 头
+  R(5,4,6,5,OUT); R(6,5,4,3,'#f6dfc9');
+  R(6,6,1,1,OUT); R(9,6,1,1,OUT);
+  // 身体
+  R(3,10,10,6,OUT); R(4,11,8,5,'#9d90cf');
+  R(6,11,4,4,'#fdf7ea');
+}
+
+/* =======================================================================
+   1b. 大像素小人（弹窗里的「角色立绘」）
+   ===================================================================== */
+function drawFigure(cv, kind, pal){
+  var W=32, H=42;
+  cv.width=W; cv.height=H;
+  var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+  ctx.clearRect(0,0,W,H);
+  var P = pal || {};
+  var skin  = P.skin  || '#f7e0c9';
+  var hair  = P.hair  || '#3c3452';
+  var cloth = P.cloth || '#e7a7c4';
+  var pants = P.pants || '#5b6485';
+  var shoe  = P.shoe  || '#3a4060';
+  var acc   = P.acc   || '#f0cf83';
+
+  function R(x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(x,y,w,h); }
+  function B(x,y,w,h,c){ ctx.fillStyle=OUT; ctx.fillRect(x-1,y-1,w+2,h+2); ctx.fillStyle=c; ctx.fillRect(x,y,w,h); }
+  function NOTE(x,y,c){ R(x,y+2,3,3,c); R(x+2,y-1,1,4,c); R(x+3,y-1,2,1,c); }
+
+  R(6,39,20,2,'rgba(43,47,74,.12)');
+
+  /* 腿 */
+  if(kind==='dance'){
+    B(8,27,5,6,pants);  B(6,32,8,3,shoe);
+    B(18,27,5,11,pants); B(17,37,8,3,shoe);
+  } else {
+    B(10,27,5,11,pants); B(8,37,8,3,shoe);
+    B(17,27,5,11,pants); B(16,37,8,3,shoe);
+  }
+
+  /* 身体 */
+  B(9,16,14,12,cloth);
+  R(13,16,6,3,'#fdf7ea');
+  R(10,27,12,1,'rgba(43,47,74,.12)');
+
+  /* 脖子 / 头 */
+  B(14,12,4,4,skin);
+  B(9,2,14,12,skin);
+  B(8,0,16,5,hair);
+  R(8,3,2,8,hair); R(22,3,2,8,hair);
+  R(12,6,2,2,OUT); R(17,6,2,2,OUT);
+  R(12,6,1,1,'#ffffff'); R(17,6,1,1,'#ffffff');
+  R(10,9,2,1,'#f0a9b8'); R(20,9,2,1,'#f0a9b8');
+  if(kind==='dance') R(14,10,4,1,'#a3566a');
+  else R(15,10,3,2,'#a3566a');
+
+  /* 手臂与道具 */
+  if(kind==='dance'){
+    B(5,6,4,12,cloth); B(4,1,5,5,skin);
+    B(23,6,4,12,cloth); B(23,1,5,5,skin);
+    NOTE(1,12,'#e7a7c4'); NOTE(28,16,'#9d90cf'); NOTE(2,22,'#f0cf83');
+  } else if(kind==='cup'){
+    B(5,17,4,10,cloth); B(4,25,5,4,skin);
+    B(22,17,4,8,cloth); B(22,23,5,4,skin);
+    B(2,18,8,9,'#fdf7ea'); R(2,21,8,1,'#e7a7c4');
+    R(1,16,10,2,'#c8d4e6'); R(6,12,1,4,'#c8d4e6');
+    B(24,16,7,9,acc); R(25,18,5,1,'#ffffff');
+  } else if(kind==='phone'){
+    B(6,17,4,10,cloth); B(22,17,4,10,cloth);
+    B(4,19,24,10,'#3c4462');
+    R(5,20,22,8,'#8fd0dd'); R(5,20,22,1,'#bde8f4'); R(5,26,22,2,'#6fbfd2');
+    R(9,22,2,2,'#e07a9a'); R(21,22,2,2,'#5f6f9c');
+    R(7,24,4,1,'#cbeef5'); R(17,24,4,1,'#cbeef5');
+    B(6,24,4,4,skin); B(22,24,4,4,skin);
+  } else if(kind==='dice'){
+    B(6,17,4,9,cloth); B(22,17,4,9,cloth);
+    B(9,19,14,14,acc);
+    R(12,22,3,3,OUT); R(18,22,3,3,OUT);
+    R(12,28,3,3,OUT); R(18,28,3,3,OUT);
+    B(6,24,4,5,skin); B(22,24,4,5,skin);
+  } else if(kind==='pose'){
+    B(22,12,4,11,cloth); B(21,7,5,5,skin);
+    B(5,17,4,10,cloth); B(5,26,5,3,skin);
+  } else if(kind==='talk'){
+    B(22,17,4,9,cloth); B(22,13,6,5,skin);
+    B(5,18,4,9,cloth); B(5,26,5,3,skin);
+    B(2,29,28,12,'#c39a67');
+    R(5,31,22,8,'#e0bb8a'); R(13,32,6,6,acc); R(3,29,26,2,'#d8b184');
+  } else {
+    B(21,15,4,10,cloth);
+    B(19,15,5,4,skin);
+    B(20,10,3,6,'#6b7590');
+    B(19,6,7,5,'#9aa6bd');
+    R(20,7,5,1,'#c8d2e2'); R(20,9,5,1,'#7c88a0');
+    B(5,17,4,10,cloth); B(5,26,5,3,skin);
+    if(kind==='sing'){ NOTE(28,2,'#e7a7c4'); NOTE(27,11,'#9d90cf'); }
+  }
+}
+
+/* =======================================================================
+   2. 环节数据（内容见 content/*.json 的 CFG.stages）
+   ===================================================================== */
+/* 环节数据定义在 content/*.json，顶部已建立别名 STAGES */
+
+/* 像素小人配色 */
+var FIGPAL = {
+  talk :{cloth:'#5f6f9c'},
+  speak:{cloth:'#7fb069'},
+  sing :{cloth:'#e7a7c4'},
+  dance:{cloth:'#9d90cf'},
+  cup  :{cloth:'#f0cf83'},
+  phone:{cloth:'#4f6f9e'},
+  dice :{cloth:'#a9dd77'}
+};
+
+var STORE_KEY = 'event.progress.v2';
+var done = {};
+try{ done = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; }catch(e){ done = {}; }
+function saveDone(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(done)); }catch(e){} }
+function doneCount(){ var n=0; for(var k in done){ if(done[k]) n++; } return n; }
+
+/* =======================================================================
+   3. 音效
+   ===================================================================== */
+var audio = { ctx:null, on:true };
+function ac(){
+  if(!audio.ctx){
+    try{ audio.ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  if(audio.ctx.state === 'suspended'){ audio.ctx.resume(); }
+  return audio.ctx;
+}
+function blip(freq, dur, type, vol, when){
+  if(!audio.on) return;
+  var c = ac(); if(!c) return;
+  var t = c.currentTime + (when||0);
+  var o = c.createOscillator(), g = c.createGain();
+  o.type = type || 'square';
+  o.frequency.setValueAtTime(freq, t);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vol||0.05, t+0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(t); o.stop(t+dur+0.02);
+}
+var SFX = {
+  hover:function(){ blip(880,.05,'square',.022); },
+  click:function(){ blip(520,.06,'square',.045); blip(780,.07,'square',.035,.05); },
+  open:function(){ blip(420,.06,'triangle',.05); blip(630,.08,'triangle',.04,.055); },
+  done:function(){ [523,659,784,1046].forEach(function(f,i){ blip(f,.11,'square',.045,i*0.075); }); },
+  start:function(){ [392,523,659,784].forEach(function(f,i){ blip(f,.13,'square',.05,i*0.09); }); },
+  boot:function(){ [262,330,392,523].forEach(function(f,i){ blip(f,.1,'square',.035,i*0.06); }); }
+};
+
+/* =======================================================================
+   4. 场景绘制（程序化像素画）
+   ===================================================================== */
+var FAR = ['#cdd9ee','#d8d2e9','#cbdff0','#e0d6e9','#c9dced','#d5dcea'];
+var MID = ['#e9dccd','#e2e6ec','#e5d8e4','#dee4ea','#ecdfd0'];
+var ROOF = ['#c9a6a0','#b3a2c6','#a9b7cc','#cdb49a','#c2a3a8','#b9aec9'];
+
+function rect(ctx,x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h)); }
+
+function skyBands(ctx,W,H,hz,r){
+  var top=[168,206,232], bot=[236,247,252];
+  var bands = Math.max(8, Math.round(H*0.055));
+  for(var i=0;i<bands;i++){
+    var t=i/(bands-1);
+    var y=Math.round(hz*t*1.06);
+    var h=Math.ceil(hz*1.06/bands)+1;
+    var c='rgb('+Math.round(top[0]+(bot[0]-top[0])*t)+','+Math.round(top[1]+(bot[1]-top[1])*t)+','+Math.round(top[2]+(bot[2]-top[2])*t)+')';
+    rect(ctx,0,y,W,h,c);
+  }
+  rect(ctx,0,hz*1.06,W,H-hz*1.06,'#c3e0ee');
+}
+
+function drawCloudShape(ctx,x,y,s,alpha){
+  ctx.globalAlpha = alpha==null?1:alpha;
+  var C='#ffffff', S='#e4eef7';
+  var u=s;
+  // 主体
+  rect(ctx,x+2*u,y+2*u,10*u,3*u,C);
+  rect(ctx,x+1*u,y+3*u,12*u,3*u,C);
+  rect(ctx,x+3*u,y+1*u,6*u,2*u,C);
+  rect(ctx,x+0*u,y+4*u,14*u,2*u,C);
+  rect(ctx,x+2*u,y+6*u,10*u,1*u,S);
+  rect(ctx,x+4*u,y+5*u,8*u,1*u,S);
+  ctx.globalAlpha=1;
+}
+function drawClouds(ctx,W,H,t,seed){
+  var r = makeRng(seed);
+  var n = 7;
+  for(var i=0;i<n;i++){
+    var baseX = r()*W;
+    var y = r()*H*0.34 + H*0.04;
+    var s = (0.6 + r()*1.5) * Math.max(1, W/460);
+    var spd = 2.2 + r()*5.5;
+    var x = ((baseX + t*spd) % (W+40*s)) - 20*s;
+    var a = 0.72 + r()*0.28;
+    drawCloudShape(ctx, x, y, s, a);
+  }
+}
+
+/* ---- 草坪上的像素小人（可动 · 各做各的事） ----
+   沿用弹窗立绘的 32×42 网格与描边，缩到草坪尺寸后再叠动作动画 */
+var CROWD_COL = {
+  skin:['#f7e0c9','#f3d8bd','#e9c5a3','#fbe8d6'],
+  hair:['#3c3452','#5b4632','#2f2b45','#8a5f3c','#4a3f5c','#7a4a2e','#2d3556'],
+  wear:['#e7a7c4','#8fd0dd','#9d90cf','#f0cf83','#a9dd77','#f2a6c0','#c8d4e6','#e07a9a',
+        '#7fb069','#f0a9b8','#89b6e8','#eda36a','#bfe0a4','#b8a4e3'],
+  pant:['#5b6485','#3f4a6b','#6b7391','#54607a','#474f6e','#6d5f86'],
+  shoe:['#3a4060','#434867','#3f4360','#2f3550']
+};
+
+/* 一个草坪小人：cx=中线，by=脚底，h=目标总高；o.act 决定他在干什么 */
+function actPerson(ctx, cx, by, h, r, o){
+  o = o || {};
+  var u    = h/42;
+  var t    = o.t || 0;
+  var ph   = o.ph || 0;
+  var act  = o.act || 'idle';
+  var skin = o.skin || pick(CROWD_COL.skin, r);
+  var hair = o.hair || pick(CROWD_COL.hair, r);
+  var wear = o.wear || pick(CROWD_COL.wear, r);
+  var pant = pick(CROWD_COL.pant, r);
+  var shoe = pick(CROWD_COL.shoe, r);
+  var st   = Math.floor(r()*3);
+  var side = o.side || 1;
+
+  var sway = Math.sin(t*1.7 + ph);
+  var fast = Math.sin(t*5.2 + ph);
+  var bob  = (act==='walk') ? Math.abs(Math.sin(t*6.2+ph))*0.9 : sway*0.45;
+
+  var ox = cx - 16*u;
+  var oy = by - (42 + bob)*u;
+
+  function R(x,y,w,hh,c){
+    ctx.fillStyle = c;
+    ctx.fillRect(Math.round(ox+x*u), Math.round(oy+y*u), Math.max(1,Math.round(w*u)), Math.max(1,Math.round(hh*u)));
+  }
+  function B(x,y,w,hh,c){
+    ctx.fillStyle = OUT;
+    ctx.fillRect(Math.round(ox+(x-1)*u), Math.round(oy+(y-1)*u), Math.max(1,Math.round((w+2)*u)), Math.max(1,Math.round((hh+2)*u)));
+    R(x,y,w,hh,c);
+  }
+
+  /* 影子 */
+  ctx.fillStyle = 'rgba(43,47,74,.13)';
+  ctx.fillRect(Math.round(cx-9*u), Math.round(by-1), Math.round(18*u), Math.max(1,Math.round(2*u)));
+
+  /* 腿 + 鞋 */
+  var stride = (act==='walk') ? Math.round(fast*2) : 0;
+  if(act==='walk'){
+    B(10+stride,30,5,9,pant); B(8+stride,37,8,3,shoe);
+    B(17-stride,30,5,9,pant); B(16-stride,37,8,3,shoe);
+  } else {
+    B(10,30,5,9,pant); B(8,37,8,3,shoe);
+    B(17,30,5,9,pant); B(16,37,8,3,shoe);
+  }
+
+  /* 身体 */
+  B(9,16,14,15,wear);
+  R(13,16,6,3,'#fdf7ea');
+  R(10,30,12,1,'rgba(43,47,74,.12)');
+
+  /* 手臂：默认垂在两侧，需要抬手的动作关掉对应一侧自己画 */
+  var lDown = true, rDown = true;
+  if(act==='code' || act==='drone' || act==='book' || act==='phone' || act==='walk'){ lDown=false; rDown=false; }
+  else if(act==='badminton' || act==='wave' || act==='coffee' || act==='talk'){ rDown=false; }
+  else if(act==='robot'){ if(side>0) rDown=false; else lDown=false; }
+  if(lDown){ B(5,17,4,12,wear); B(5,28,5,4,skin); }
+  if(rDown){ B(23,17,4,12,wear); B(23,28,5,4,skin); }
+
+  /* 脖子 + 头 */
+  B(14,12,4,4,skin);
+  var headDn = (act==='book' || act==='phone') ? 1 : 0;
+  B(9,2,14,12,skin);
+  /* 头发（三种） */
+  if(st===0){                       /* 齐刘海 */
+    B(8,0,16,5,hair); R(8,3,2,8,hair); R(22,3,2,8,hair);
+  } else if(st===1){                /* 短发 */
+    B(8,0,16,4,hair); R(8,3,2,4,hair); R(22,3,2,4,hair);
+  } else {                          /* 长发 + 马尾 */
+    B(8,0,16,5,hair); R(8,3,2,11,hair); R(22,3,2,11,hair);
+    R(25,5,3,7,hair);
+  }
+  /* 眼睛 */
+  R(12,6+headDn,2,2,OUT); R(17,6+headDn,2,2,OUT);
+  R(12,6+headDn,1,1,'#ffffff'); R(17,6+headDn,1,1,'#ffffff');
+  R(10,9+headDn,2,1,'#f0a9b8'); R(20,9+headDn,2,1,'#f0a9b8');
+  R(15,10+headDn,3,2,'#a3566a');
+
+  /* ---------- 各干各的 ---------- */
+  if(act === 'code'){
+    /* 抱着笔记本敲键盘 */
+    B(11,19,10,8,'#3c435f');
+    R(12,20,8,6,'#8fe3ff');
+    var kk = Math.floor((t*7 + ph*3) % 4);
+    R(12,20+kk,8,1,'rgba(43,47,74,.5)');
+    R(10,27,12,2,'#5a6180');
+    B(5,18,4,8,wear); B(6,25,4,4,skin);
+    B(23,18,4,8,wear); B(22,25,4,4,skin);
+  }
+
+  else if(act === 'robot'){
+    /* 旁边站个小机器人，抬手调参数 */
+    var rxp = (side>0) ? 30 : -10;
+    var blink = Math.sin(t*2.4+ph) > 0.55;
+    R(rxp+2,37,2,4,'#b9c2d4'); R(rxp+6,37,2,4,'#b9c2d4');
+    R(rxp+1,40,3,2,'#31374f'); R(rxp+6,40,3,2,'#31374f');
+    B(rxp,28,9,9,'#dfe7f2');
+    R(rxp+1,34,7,2,'#c3ccdd');
+    R(rxp+2,30,5,3,'#8fd0dd');
+    R(rxp+3,31,3,1,'#eafcff');
+    R(rxp-2,30,3,5,'#b9c2d4'); R(rxp+8,30,3,5,'#b9c2d4');
+    B(rxp+1,21,7,6,'#eef3fa');
+    R(rxp+2,23,2,2,OUT); R(rxp+5,23,2,2,OUT);
+    R(rxp+2,23,1,1,'#ffffff'); R(rxp+5,23,1,1,'#ffffff');
+    R(rxp+3,25,3,1,'#c9867c');
+    R(rxp+4,18,1,3,'#9aa3b8');
+    R(rxp+3,16,3,2, blink ? '#e0574f' : '#8ed46f');
+    /* 抬起的手臂 */
+    var reach = Math.round(Math.sin(t*3.2+ph)*2);
+    if(side>0){ B(23,17-reach,4,8,wear); B(24,22-reach,5,4,skin); }
+    else      { B(5,17-reach,4,8,wear);  B(3,22-reach,5,4,skin); }
+  }
+
+  else if(act === 'badminton'){
+    /* 举拍打羽毛球 */
+    var swing = Math.sin(t*3.4+ph);
+    var rackY = Math.round(12 + swing*3);
+    B(23,16,4,8,wear);
+    B(24,11,5,5,skin);
+    R(27,rackY+5,2,5,'#8a5f3c');
+    R(24,rackY-1,8,8,'#8a5f3c');
+    R(25,rackY,6,6,'#ffffff');
+    R(25,rackY+2,6,1,'#c9a24f');
+    R(27,rackY,1,6,'#c9a24f');
+    var k2 = Math.abs(Math.sin(t*3.4+ph));
+    var shX = Math.round(16 - 13*Math.sin(t*3.4+ph));
+    var shY = Math.round(-6 - 12*k2);
+    R(shX,shY,3,3,'#ffffff');
+    R(shX,shY-3,3,3,'#dfe7f2');
+  }
+
+  else if(act === 'drone'){
+    /* 遥控无人机 */
+    B(11,23,10,5,'#3c435f');
+    R(12,25,8,2,'#8fd0dd');
+    B(5,18,4,8,wear); B(6,25,4,4,skin);
+    B(23,18,4,8,wear); B(22,25,4,4,skin);
+    var dx = Math.round(16 + 6*Math.sin(t*0.9+ph));
+    var dy = Math.round(-9 + 2*Math.sin(t*2.6+ph));
+    R(dx-5,dy,11,2,'#4a5170');
+    R(dx-9,dy-2,5,2,'rgba(255,255,255,.8)');
+    R(dx+5,dy-2,5,2,'rgba(255,255,255,.8)');
+    R(dx-1,dy+3,2,2, Math.sin(t*9+ph)>0 ? '#8ed46f' : '#e0574f');
+  }
+
+  else if(act === 'book'){
+    /* 低头看书 */
+    B(10,21,6,6,'#fdf7ea');
+    B(16,21,6,6,'#fdf7ea');
+    R(10,21,6,1,'#c9a24f'); R(16,21,6,1,'#c9a24f');
+    R(15,21,2,6,'#c9a24f');
+    B(5,18,4,8,wear); B(6,26,4,4,skin);
+    B(23,18,4,8,wear); B(22,26,4,4,skin);
+  }
+
+  else if(act === 'coffee'){
+    /* 抿一口奶茶 */
+    var lift = Math.max(0, Math.sin(t*0.85+ph));
+    var ly = Math.round(lift*7);
+    B(19,17-ly,7,8,'#f0cf83');
+    R(18,16-ly,9,2,'#e7a7c4');
+    R(22,11-ly,2,5,'#e7a7c4');
+    B(23,17-ly,5,5,skin);
+    B(5,17,4,10,wear); B(5,26,5,3,skin);
+  }
+
+  else if(act === 'phone'){
+    /* 低头看手机 */
+    B(12,22,8,8,'#3c435f');
+    R(13,23,6,6,'#8fd0dd');
+    B(5,18,4,8,wear); B(6,26,4,4,skin);
+    B(23,18,4,8,wear); B(22,26,4,4,skin);
+  }
+
+  else if(act === 'wave'){
+    /* 抬手打招呼 */
+    var wv = Math.round(Math.sin(t*3.6+ph)*2);
+    B(23+wv,9,4,10,wear);
+    B(23+wv,5,5,5,skin);
+  }
+
+  else if(act === 'talk'){
+    /* 边说边比划 */
+    var g = Math.round(Math.sin(t*2.6+ph)*2);
+    B(23,17+g,5,4,wear);
+    B(25,18+g,5,4,skin);
+  }
+
+  else if(act === 'walk'){
+    var sw = stride;
+    B(5,17+sw,4,10,wear); B(5,26+sw,5,3,skin);
+    B(23,17-sw,4,10,wear); B(23,26-sw,5,3,skin);
+  }
+}
+
+/* 草坪上的全体：两排站位 + 两个来回走动的
+   mode='end' 时中间留空，给结语页的落款牌和按钮让位 */
+function drawLawn(ctx, W, H, hz, t, mode){
+  var lawn = Math.max(16, H-hz);
+  var r = makeRng(20260611);
+  var narrow = W < 300;
+  var sets;
+
+  if(mode === 'end'){
+    sets = narrow
+      ? [ { y: H-4, hk:0.165, xs:[0.21,0.79], acts:['wave','coffee'] } ]
+      : [ { y: hz + lawn*0.60, hk:0.135, xs:[0.130,0.250,0.750,0.870],
+            acts:['wave','book','drone','wave'] },
+          { y: H-3,             hk:0.175, xs:[0.070,0.195,0.805,0.930],
+            acts:['robot','code','coffee','badminton'] } ];
+  } else if(narrow){
+    sets = [ { y: hz + lawn*0.55, hk:0.115, xs:[0.20,0.50,0.80],
+               acts:['wave','book','wave'] },
+             { y: H-4,            hk:0.165, xs:[0.22,0.55,0.88],
+               acts:['code','badminton','drone'] } ];
+  } else {
+    sets = [ { y: hz + lawn*0.55, hk:0.135, xs:[0.075,0.205,0.335,0.665,0.795,0.925],
+               acts:['wave','book','talk','talk','book','wave'] },
+             { y: H-3,            hk:0.185, xs:[0.120,0.330,0.500,0.672,0.882],
+               acts:['code','robot','badminton','drone','coffee'] } ];
+  }
+
+  var interactive = (mode !== 'end');
+  if(interactive) heroPick.length = 0;
+  var idx = 0;
+  for(var s=0;s<sets.length;s++){
+    var st = sets[s];
+    for(var i=0;i<st.xs.length;i++){
+      var off = (interactive && heroOff[idx]) ? heroOff[idx] : {dx:0,dy:0};
+      var px2 = W*st.xs[i] + off.dx;
+      var py2 = st.y + off.dy;
+      actPerson(ctx, px2, py2, H*st.hk, r, {
+        act : st.acts[i] || 'idle',
+        t   : t,
+        ph  : idx*1.7 + s*0.9,
+        side: (i%2 ? 1 : -1)
+      });
+      if(interactive){
+        var u2 = H*st.hk/42;
+        heroPick.push({ key:'s'+idx, idx:idx, act:st.acts[i] || 'idle',
+                        x0:px2-17*u2, x1:px2+17*u2, y0:py2-46*u2, y1:py2+2 });
+      }
+      idx++;
+    }
+  }
+
+  /* 贴着最前排来回走动的两个人（可以点，但不跟着拖走） */
+  var wr = makeRng(31337);
+  var span = W + 80;
+  for(var k=0;k<2;k++){
+    var dir = k ? -1 : 1;
+    var spd = 7 + k*5;
+    var woff = (t*spd + k*60) % span;
+    var wx  = dir>0 ? (woff - 40) : (W + 40 - woff);
+    var wh  = H*(narrow ? 0.170 : 0.190);
+    actPerson(ctx, wx, H-3, wh, wr, {
+      act:'walk', t:t, ph:k*2.1, side:dir
+    });
+    if(interactive){
+      var wu = wh/42;
+      heroPick.push({ key:'w'+k, idx:-1, moving:true, act:'walk',
+                      x0:wx-17*wu, x1:wx+17*wu, y0:H-3-46*wu, y1:H-3+2 });
+    }
+  }
+}
+
+function paintScene(id){
+  var cv = $(id); if(!cv) return;
+  fitCanvas(cv);
+  drawScene(cv);
+}
+
+function drawScene(cv){
+  var W=cv.width, H=cv.height;
+  var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+  var r = makeRng(20260611);
+  var hz = H*0.74;
+  ctx.clearRect(0,0,W,H);
+  skyBands(ctx,W,H,hz,r);
+
+  /* --- 远景天际线 --- */
+  var x=-6*Math.max(1,W/460);
+  var u = Math.max(1, Math.round(W/460));
+  while(x < W+8){
+    var bw = (5+Math.floor(r()*11))*u;
+    var bh = (10+Math.floor(r()*Math.round(H*0.20)));
+    var c = pick(FAR,r);
+    rect(ctx,x,hz-bh,bw,bh,c);
+    var fh = Math.max(2,Math.round(bh*0.5));
+    rect(ctx,x,hz-bh-2*u,bw,2*u,'#c2b8d6');
+    // 窗户
+    for(var wy=hz-bh+3*u; wy<hz-4*u; wy+=4*u){
+      for(var wx=x+2*u; wx<x+bw-2*u; wx+=3*u){
+        if(r()>0.42) rect(ctx,wx,wy,1*u,2*u,'#fff8e2');
+      }
+    }
+    x += bw + (1+Math.floor(r()*2))*u;
+  }
+
+  /* --- 中景建筑 --- */
+  x=-4*u;
+  while(x < W+8){
+    var mw = (14+Math.floor(r()*22))*u;
+    var mh = (16+Math.floor(r()*Math.round(H*0.20)));
+    var mc = pick(MID,r);
+    rect(ctx,x,hz-mh,mw,mh,mc);
+    rect(ctx,x,hz-mh,2*u,mh,'rgba(255,255,255,.35)');
+    // 屋顶（阶梯式坡屋顶）
+    var steps = Math.max(2, Math.round(Math.min(mw*0.30, H*0.055)));
+    var rc = pick(ROOF,r);
+    for(var i=0;i<steps;i++){
+      var t2 = i/steps;
+      var w2 = mw*(0.18+0.82*t2);
+      rect(ctx, x+(mw-w2)/2, hz-mh-(steps-i)*2*u, w2, 2*u, rc);
+    }
+    rect(ctx, x+(mw-w2)/2, hz-mh-(0)*2*u, w2, 1*u, 'rgba(43,47,74,.10)');
+    // 窗
+    for(var wy2=hz-mh+4*u; wy2<hz-4*u; wy2+=5*u){
+      for(var wx2=x+3*u; wx2<x+mw-3*u; wx2+=4*u){
+        var lit = r()>0.35;
+        rect(ctx,wx2,wy2,2*u,2*u, lit?'#fff3d0':'#c9c2d6');
+      }
+    }
+    x += mw + (2+Math.floor(r()*3))*u;
+  }
+
+  /* --- 焦点建筑（学院） --- */
+  (function(){
+    var cw = 34*u, chh = Math.round(H*0.17);
+    var cx = W*0.5 - cw/2, cy = hz - chh;
+    rect(ctx,cx-3*u,cy+8*u,cw+6*u,chh-8*u,'#f2e6d6');
+    rect(ctx,cx-3*u,cy+8*u,cw+6*u,2*u,'#d8c6ae');
+    // 主体
+    rect(ctx,cx,cy+2*u,cw,chh-2*u,'#fbf3e6');
+    // 穹顶
+    rect(ctx,cx+cw/2-5*u,cy-4*u,10*u,4*u,'#c9b6dd');
+    rect(ctx,cx+cw/2-3*u,cy-6*u,6*u,2*u,'#c9b6dd');
+    rect(ctx,cx+cw/2-1*u,cy-9*u,2*u,3*u,'#8a5f3c');
+    rect(ctx,cx+cw/2+1*u,cy-9*u,4*u,2*u,'#e07a9a');
+    // 柱
+    for(var i=0;i<5;i++){
+      var px = cx+3*u + i*(cw-6*u)/4;
+      rect(ctx,px,cy+6*u,2*u,chh-9*u,'#e6d8c2');
+    }
+    // 门
+    rect(ctx,cx+cw/2-3*u,cy+chh-9*u,6*u,9*u,'#a9855f');
+    rect(ctx,cx+cw/2-2*u,cy+chh-8*u,4*u,8*u,'#7d5c3c');
+    // 台阶
+    rect(ctx,cx-2*u,hz-3*u,cw+4*u,3*u,'#e8ddc8');
+    // 小人物剪影
+    rect(ctx,cx-6*u,hz-6*u,2*u,6*u,'#5d6a86');
+    rect(ctx,cx-6*u,hz-8*u,2*u,2*u,'#5d6a86');
+    rect(ctx,cx+cw+4*u,hz-6*u,2*u,6*u,'#6b5a7a');
+    rect(ctx,cx+cw+4*u,hz-8*u,2*u,2*u,'#6b5a7a');
+  })();
+
+  /* --- 树 --- */
+  var treeY = hz;
+  for(var tx=-6*u; tx<W+10*u; tx += (10+Math.floor(r()*16))*u){
+    if(tx>W*0.30 && tx<W*0.70) continue; // 避开焦点建筑
+    var th = (10+Math.floor(r()*10))*u;
+    rect(ctx,tx,treeY-th*0.42,2*u,th*0.42,'#8a6a4a');
+    var g1 = r()>0.5?'#7fb069':'#8dbf77';
+    var g2 = r()>0.5?'#6d9d59':'#78ab63';
+    rect(ctx,tx-3.5*u,treeY-th*0.42-3*u,9*u,3*u,g2);
+    rect(ctx,tx-4.5*u,treeY-th*0.42-6*u,11*u,3*u,g1);
+    rect(ctx,tx-3*u,treeY-th*0.42-9*u,8*u,3*u,g2);
+  }
+
+  /* --- 灌木 --- */
+  for(var bx=-4*u; bx<W+8*u; bx += (6+Math.floor(r()*8))*u){
+    var bhh=2+Math.floor(r()*3);
+    rect(ctx,bx,hz-bhh*u,5*u,bhh*u,'#7cae66');
+    rect(ctx,bx+1*u,hz-(bhh+1)*u,3*u,1*u,'#8ec077');
+  }
+
+  /* --- 地面 --- */
+  rect(ctx,0,hz,W,H-hz,'#a7cf82');
+  rect(ctx,0,hz,W,2*u,'#93bd6e');
+  // 草地纹理
+  for(var i2=0;i2<W;i2+=3*u){ if(r()>0.5) rect(ctx,i2,hz+3*u+Math.floor(r()*3)*u,1*u,1*u,'#93bd6e'); }
+
+  /* --- 白色栅栏 --- */
+  var fy = hz - 7*u;
+  rect(ctx,0,fy+4*u,W,1.5*u,'#ffffff');
+  rect(ctx,0,fy+6.5*u,W,1*u,'#e6eef5');
+  for(var px2=0; px2<W; px2+=5*u){
+    rect(ctx,px2,fy,1.6*u,7*u,'#ffffff');
+    var tipC='#ffffff';
+    rect(ctx,px2+0.4*u,fy-1*u,0.8*u,1*u,tipC);
+  }
+
+  /* --- 花 --- */
+  for(var i3=0;i3<26;i3++){
+    var fx=r()*W, fyy=hz+4*u+r()*Math.max(2,(H-hz-6*u));
+    var fc = pick(['#f2a6c0','#fbe3a0','#ffffff','#c6b2e6'],r);
+    rect(ctx,fx,fyy,1*u,1*u,fc);
+    rect(ctx,fx-1*u,fyy+1*u,1*u,1*u,fc);
+    rect(ctx,fx+1*u,fyy+1*u,1*u,1*u,fc);
+  }
+
+  /* --- 前景：步道 --- */
+  rect(ctx,0,hz+2*u,W,3*u,'#e7ddc6');
+  rect(ctx,0,hz+5*u,W,1*u,'#d2c5a7');
+  for(var sx=0;sx<W;sx+=6*u){ if(r()>0.55) rect(ctx,sx,hz+3*u,3*u,1*u,'#d9cdb1'); }
+
+  /* --- 前景大树（作为构图两翼） --- */
+  function bigTree(txx){
+    var base = hz + 8*u;
+    var th = Math.round(H*0.26);
+    var trunkH = Math.round(th*0.34);
+    var crownH = th - trunkH;
+    var cb = base - trunkH;                       /* 树冠底部 = 树干顶部 */
+    rect(ctx, txx-1.5*u, cb, 3*u, trunkH+1, '#8a6a4a');
+    rect(ctx, txx-2.5*u, cb, 1*u, Math.round(trunkH*0.60), '#7a5c3e');
+    rect(ctx, txx+1.5*u, cb+Math.round(trunkH*0.30), 1*u, Math.round(trunkH*0.50), '#6f5338');
+    /* 树冠：由下往上先宽后收，做成自然轮廓 */
+    var layers = [
+      [0.66,0.24,'#6f9f5c'],
+      [0.86,0.22,'#7cb168'],
+      [1.00,0.20,'#8abd74'],
+      [0.86,0.18,'#7fb069'],
+      [0.58,0.16,'#8dbf77']
+    ];
+    var ly = cb;
+    for(var i=0;i<layers.length;i++){
+      var w = Math.round(th*layers[i][0]);
+      var h = Math.round(crownH*layers[i][1]);
+      ly -= h;
+      rect(ctx, txx-w/2, ly, w, h, layers[i][2]);
+    }
+    /* 叶簇点缀 */
+    rect(ctx, txx-th*0.50, cb-crownH*0.58, th*0.18, crownH*0.13, '#6f9f5c');
+    rect(ctx, txx+th*0.32, cb-crownH*0.78, th*0.16, crownH*0.11, '#6f9f5c');
+  }
+  if(W >= 360){ bigTree(Math.round(W*0.10)); bigTree(Math.round(W*0.90)); }
+
+  /* --- 前景：花坛与灌木（压住构图下缘） --- */
+  for(var k=0;k<18;k++){
+    var gx=r()*W, gy=hz+7*u+r()*Math.max(2,(H-hz-11*u));
+    var gc=pick(['#f2a6c0','#fbe3a0','#c6b2e6','#ffffff'],r);
+    for(var q=0;q<4;q++){
+      var ox=(q%2?1:-1)*u, oy=Math.floor(q/2)*u;
+      rect(ctx,gx+ox,gy+oy,1*u,1*u,gc);
+    }
+    rect(ctx,gx,gy+2*u,1*u,1*u,'#6b9c58');
+  }
+  for(var fbx=-6*u; fbx<W+8*u; fbx += (8+Math.floor(r()*10))*u){
+    var fbw=(7+Math.floor(r()*8))*u;
+    var fbh=(3+Math.floor(r()*3))*u;
+    var fbc = pick(['#7cae66','#8dbf77','#6f9f5c'],r);
+    rect(ctx,fbx,H-fbh,fbw,fbh,fbc);
+    rect(ctx,fbx+1*u,H-fbh-1*u,Math.max(2,fbw-2*u),1*u,'#9acb83');
+    if(r()>0.55) rect(ctx,fbx+fbw*0.35,H-fbh-3*u,1*u,3*u,'#7cae66');
+  }
+
+  ctx.globalAlpha=1;
+}
+
+var sceneFit = {scale:3,W:480,H:270};
+function fitCanvas(cv){
+  var scale = clamp(Math.round(window.innerWidth/560),2,4);
+  var W = Math.ceil(window.innerWidth/scale);
+  var H = Math.ceil(window.innerHeight/scale);
+  cv.width=W; cv.height=H;
+  cv.style.width=(W*scale)+'px';
+  cv.style.height=(H*scale)+'px';
+  return {W:W,H:H,scale:scale};
+}
+
+var cloudRaf=null, cloudT=0, cloudLast=0;
+function startClouds(){
+  var cv=$('cloudCanvas'); if(!cv) return;
+  var fit=fitCanvas(cv);
+  heroFit=fit;
+  var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+  cloudLast=0;
+  function frame(now){
+    if(now==null) now = (window.performance && performance.now) ? performance.now() : Date.now();
+    if(!cloudLast) cloudLast = now;
+    var dt = Math.min(0.05, (now - cloudLast)/1000); cloudLast = now;
+    cloudT += dt;
+    var hz = fit.H*0.74;
+    ctx.clearRect(0,0,fit.W,fit.H);
+    drawClouds(ctx,fit.W,fit.H,cloudT,777);
+    drawLawn(ctx,fit.W,fit.H,hz,cloudT,'hero');
+    followSpeech();
+    cloudRaf = requestAnimationFrame(frame);
+  }
+  if(cloudRaf) cancelAnimationFrame(cloudRaf);
+  frame();
+}
+function stopClouds(){ if(cloudRaf){ cancelAnimationFrame(cloudRaf); cloudRaf=null; } }
+
+/* =======================================================================
+   4b. 封面小人互动：拖动换位置 · 点击说话（新增）
+   ===================================================================== */
+var heroFit = {W:480,H:270,scale:3};   /* 画布尺寸与缩放，startClouds 每帧刷新 */
+var heroOff = {};                      /* 小人序号 -> {dx,dy}，画布像素偏移 */
+var heroPick = [];                     /* 每帧重建的命中框列表 */
+var heroDrag = null;                   /* 当前拖动状态 */
+var speechKey = null, speechTimer = null, lastLine = '';
+var HERO_DRAG_T = 4;                   /* 判定为「拖动」的像素阈值 */
+
+function heroToCanvas(e){
+  var cv=$('cloudCanvas'); if(!cv) return null;
+  var r=cv.getBoundingClientRect();
+  var s=heroFit.scale||1;
+  return { x:(e.clientX-r.left)/s, y:(e.clientY-r.top)/s };
+}
+function findPick(key){
+  for(var i=0;i<heroPick.length;i++){ if(heroPick[i].key===key) return heroPick[i]; }
+  return null;
+}
+function pickPerson(p){
+  for(var i=heroPick.length-1;i>=0;i--){
+    var b=heroPick[i];
+    if(p.x>=b.x0 && p.x<=b.x1 && p.y>=b.y0 && p.y<=b.y1) return b;
+  }
+  return null;
+}
+/* 取一句台词：有专属动作台词就优先用 */
+function speechLine(act){
+  var byAct=(LAWN&&LAWN.byAct)||{};
+  var pool=(byAct[act]&&byAct[act].length)?byAct[act].concat(LAWN.lines||[]):(LAWN.lines||[]);
+  if(!pool.length) return '';
+  var t=pool[Math.floor(Math.random()*pool.length)];
+  if(pool.length>1 && t===lastLine) t=pool[(pool.indexOf(t)+1)%pool.length];
+  lastLine=t;
+  return t;
+}
+function positionSpeech(box){
+  var sp=$('speech'), sec=$('screen-hero'), cv=$('cloudCanvas');
+  if(!sp||!sec||!cv) return;
+  var sr=sec.getBoundingClientRect(), cr=cv.getBoundingClientRect();
+  var s=heroFit.scale||1;
+  var cx=(cr.left-sr.left)+(box.x0+box.x1)/2*s;
+  var cy=(cr.top -sr.top )+box.y0*s-8;
+  var half=(sp.offsetWidth||160)/2+8;
+  cx=Math.max(half, Math.min(sr.width-half, cx));
+  sp.style.left=Math.round(cx)+'px';
+  sp.style.top =Math.round(cy)+'px';
+}
+function showSpeech(box){
+  var sp=$('speech'); if(!sp||!box) return;
+  var txt=speechLine(box.act);
+  if(!txt) return;
+  sp.textContent=txt;
+  speechKey=box.key;
+  positionSpeech(box);
+  sp.classList.add('show');
+  if(speechTimer) clearTimeout(speechTimer);
+  speechTimer=setTimeout(hideSpeech, 3400);
+  if(SFX && SFX.hover) SFX.hover();
+}
+function hideSpeech(){
+  var sp=$('speech'); if(!sp) return;
+  sp.classList.remove('show');
+  speechKey=null;
+  if(speechTimer){ clearTimeout(speechTimer); speechTimer=null; }
+}
+function followSpeech(){
+  if(!speechKey) return;
+  var b=findPick(speechKey);
+  if(!b){ hideSpeech(); return; }
+  positionSpeech(b);
+}
+function onHeroDown(e){
+  if(current!=='hero') return;
+  var t=e.target;
+  if(t && t.closest && t.closest('button,a,input,textarea,.speech')) return;
+  var p=heroToCanvas(e); if(!p) return;
+  var hit=pickPerson(p); if(!hit) return;
+  var o=heroOff[hit.idx]||{dx:0,dy:0};
+  heroDrag={ idx:hit.idx, key:hit.key, moving:!!hit.moving,
+             sx:p.x, sy:p.y, ox:o.dx, oy:o.dy,
+             bx:(hit.x0+hit.x1)/2, by:hit.y1, moved:false };
+  var sec=$('screen-hero'); if(sec){ sec.classList.remove('grab'); sec.classList.add('grabbing'); }
+  hideSpeech();
+}
+function onHeroMove(e){
+  if(current!=='hero') return;
+  var p=heroToCanvas(e); if(!p) return;
+  if(heroDrag){
+    if(Math.abs(p.x-heroDrag.sx)>HERO_DRAG_T || Math.abs(p.y-heroDrag.sy)>HERO_DRAG_T) heroDrag.moved=true;
+    if(heroDrag.moving) return;                     /* 走动的小人不拖走，但可以点 */
+    var W=heroFit.W||480, H=heroFit.H||270;
+    var nx=clamp(heroDrag.bx + heroDrag.ox + (p.x-heroDrag.sx), -20, W+20);
+    var ny=clamp(heroDrag.by + heroDrag.oy + (p.y-heroDrag.sy), H*0.18, H-2);
+    heroOff[heroDrag.idx]={ dx:nx-heroDrag.bx, dy:ny-heroDrag.by };
+    return;
+  }
+  var sec=$('screen-hero'); if(!sec) return;
+  var hit=pickPerson(p);
+  sec.classList.toggle('grab', !!(hit && !hit.moving));
+}
+function onHeroUp(){
+  var d=heroDrag; heroDrag=null;
+  var sec=$('screen-hero'); if(sec) sec.classList.remove('grabbing','grab');
+  if(!d) return;
+  if(!d.moved){                                     /* 没怎么动就当成一次点击 */
+    var b=findPick(d.key);
+    if(b) showSpeech(b);
+  }
+}
+function onHeroLeave(){
+  var sec=$('screen-hero'); if(!sec) return;
+  if(!heroDrag) sec.classList.remove('grab');
+}
+function initHeroInteraction(){
+  var sec=$('screen-hero'); if(!sec || sec.__heroBound) return;
+  sec.__heroBound = true;
+  sec.addEventListener('pointerdown', onHeroDown);
+  sec.addEventListener('pointerleave', onHeroLeave);
+  sec.addEventListener('pointercancel', onHeroUp);
+  window.addEventListener('pointermove', onHeroMove);
+  window.addEventListener('pointerup', onHeroUp);
+}
+
+/* =======================================================================
+   4c. 把 content/*.json 的文案写回页面
+   ===================================================================== */
+function stageFlag(flag){
+  for(var i=0;i<STAGES.length;i++){ if(STAGES[i][flag]) return STAGES[i]; }
+  return null;
+}
+function aboutDeptCount(){
+  var s=stageFlag('aboutPage');
+  return (s && s.about && s.about.depts) ? s.about.depts.length : 0;
+}
+function applyContent(){
+  var q=function(sel){ return document.querySelector(sel); };
+  var setTxt=function(sel,val){ var el=q(sel); if(el && val!=null) el.textContent=val; };
+  var setHTML=function(sel,val){ var el=q(sel); if(el && val!=null) el.innerHTML=val; };
+  var setAll=function(sel,vals){
+    var els=document.querySelectorAll(sel);
+    for(var i=0;i<els.length && i<vals.length;i++){ if(vals[i]!=null) els[i].textContent=vals[i]; }
+  };
+  var showS=stageFlag('fullPage'), aboutS=stageFlag('aboutPage'), gameS=stageFlag('gamePage');
+  var numP=((UI.modal||{}).numPrefix)||'环节 ';
+
+  /* 页面元信息 */
+  if(META.htmlTitle) document.title=META.htmlTitle;
+  setTxt('.eyebrow', META.eyebrow);
+  setTxt('.ttl', META.title);
+  setTxt('.ttl-sub', META.subtitle);
+  setTxt('.hero-meta', META.meta);
+  setTxt('#btnStart', META.startBtn);
+  setTxt('#screen-hero .hint', META.startHint);
+  setTxt('#hudName', META.hudName);
+  setTxt('#hudLv', META.hudLevel);
+  var tip=q('#heroTip');
+  if(tip){ tip.textContent=(LAWN&&LAWN.hint)||''; tip.style.display=(LAWN&&LAWN.hint)?'':'none'; }
+
+  /* 启动画面 */
+  setTxt('#screen-boot .boot-title', (CFG.boot||{}).title);
+  setTxt('.boot-badge', (CFG.boot||{}).badge);
+  setHTML('#bootL1', tpl((CFG.boot||{}).line1, {n:STAGES.length}));
+
+  /* 流程板 */
+  setTxt('#screen-quests .qhead-l .kicker', (UI.quests||{}).kicker);
+  setTxt('#screen-quests .qhead-l h2', (UI.quests||{}).title);
+  setTxt('#screen-quests .qprog-top span', (UI.quests||{}).doneLabel);
+  setTxt('#btnBackHero', (UI.quests||{}).backBtn);
+  setTxt('#btnEnding', (UI.quests||{}).endBtn);
+  setTxt('#screen-quests .quest-wrap > div:last-child', (UI.quests||{}).hint);
+
+  /* 才艺展示 */
+  setTxt('#screen-show .qhead-l .kicker', tpl((UI.show||{}).kicker, {num:showS?showS.num:''}));
+  setTxt('#screen-show .qhead-l h2', (UI.show||{}).title);
+  setTxt('#screen-show .qprog-top span', numP+(showS?showS.num:''));
+  setTxt('#screen-show .show-tip', (UI.show||{}).tip);
+  setTxt('#btnShowBack', (UI.show||{}).backBtn);
+  setTxt('#btnShowDone', (UI.show||{}).doneBtn);
+
+  /* 单人页 */
+  setTxt('#screen-perf .perf-nav-h', (UI.perf||{}).castTitle);
+  setTxt('#screen-perf .show-tip', (UI.perf||{}).tip);
+  setTxt('#btnPerfPrev', (UI.perf||{}).prevBtn);
+  setTxt('#btnPerfNext', (UI.perf||{}).nextBtn);
+  setTxt('#btnPerfBack', (UI.perf||{}).backBtn);
+
+  /* 协会介绍 */
+  setTxt('#screen-about .qhead-l .kicker', tpl((UI.about||{}).kicker, {num:aboutS?aboutS.num:''}));
+  setTxt('#screen-about .qhead-l h2', (UI.about||{}).title);
+  setAll('#screen-about .qprog-top span', [(UI.about||{}).origin, aboutDeptCount()+((UI.about||{}).deptSuffix||'')]);
+  setAll('#screen-about .about-h', [(UI.about||{}).fieldsTitle, (UI.about||{}).deptsTitle]);
+  setTxt('#screen-about .show-tip', (UI.about||{}).tip);
+  setTxt('#btnAboutBack', (UI.about||{}).backBtn);
+  setTxt('#btnAboutDone', (UI.about||{}).doneBtn);
+
+  /* 游戏 */
+  setTxt('#screen-games .qhead-l .kicker', tpl((UI.games||{}).kicker, {num:gameS?gameS.num:''}));
+  setTxt('#screen-games .qhead-l h2', (UI.games||{}).title);
+  setTxt('#screen-games .qprog-top span', numP+(gameS?gameS.num:''));
+  setTxt('#screen-games .show-tip', (UI.games||{}).tip);
+  setTxt('#btnGamesBack', (UI.games||{}).backBtn);
+  setTxt('#btnGamesDone', (UI.games||{}).doneBtn);
+
+  setTxt('#screen-game .qhead-l .kicker', tpl((UI.game||{}).kicker, {num:gameS?gameS.num:''}));
+  setTxt('#screen-game .gnav-h', (UI.game||{}).moreTitle);
+  setTxt('#screen-game .g-h', (UI.game||{}).howTitle);
+  setTxt('#screen-game .show-tip', (UI.game||{}).tip);
+  setTxt('#btnGamePrev', (UI.game||{}).prevBtn);
+  setTxt('#btnGameNext', (UI.game||{}).nextBtn);
+  setTxt('#btnGameBack', (UI.game||{}).backBtn);
+
+  /* 结语 */
+  setTxt('#screen-end .end-ttl', (UI.end||{}).title);
+  setTxt('#screen-end .end-org', (UI.end||{}).orgLine);
+  setTxt('#screen-end .rowk', (UI.end||{}).plateLine);
+  setTxt('#btnBackBoard', (UI.end||{}).backBtn);
+  setTxt('#btnAgain', (UI.end||{}).againBtn);
+
+  /* 弹窗 */
+  setTxt('#mStamp', (UI.modal||{}).stampDone);
+  setTxt('#mClose', (UI.modal||{}).closeBtn);
+  setTxt('#mDone', (UI.modal||{}).doneBtn);
+
+  setTxt('#zoomTag', (UI.zoom||{}).tag);
+  setTxt('#zoomClose', (UI.zoom||{}).closeBtn);
+  setTxt('#zoomModal .zoom-tip', (UI.zoom||{}).tip);
+
+  /* 操作说明 */
+  setTxt('#helpModal .mh-n', (UI.help||{}).kicker);
+  setTxt('#helpModal .mh-name', (UI.help||{}).title);
+  setTxt('#helpClose', (UI.help||{}).closeBtn);
+  var hg=q('#helpModal .helpgrid');
+  if(hg){
+    hg.innerHTML=(((UI.help||{}).keys)||[]).map(function(k){
+      return '<div><span class="key">'+k[0]+'</span><span>'+k[1]+'</span></div>';
+    }).join('');
+  }
+}
+
+
+/* =======================================================================
+   5. 结语页粒子
+   ===================================================================== */
+var endRaf=null, endT=0, endLast=0;
+function startEndFx(){
+  var cv=$('endFxCanvas');
+  if(!cv) return;
+  var fit=fitCanvas(cv);
+  var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+  var r=makeRng(4242);
+  var hz=fit.H*0.74;
+  var parts=[];
+  for(var i=0;i<90;i++){
+    parts.push({x:r()*fit.W,y:r()*fit.H,v:0.12+r()*0.55,s:r()>0.72?2:1,c:pick(['#ffffff','#fbe3a0','#f2a6c0','#c6b2e6','#a9dd77'],r),o:0.35+r()*0.5});
+  }
+  endLast=0;
+  function frame(now){
+    if(now==null) now = (window.performance && performance.now) ? performance.now() : Date.now();
+    if(!endLast) endLast = now;
+    var dt = Math.min(0.05, (now - endLast)/1000); endLast = now;
+    endT += dt;
+    ctx.clearRect(0,0,fit.W,fit.H);
+    drawLawn(ctx,fit.W,fit.H,hz,endT,'end');
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i];
+      p.y += p.v;
+      if(p.y>fit.H+2){ p.y=-2; p.x=r()*fit.W; }
+      ctx.globalAlpha=p.o;
+      ctx.fillStyle=p.c;
+      ctx.fillRect(Math.round(p.x),Math.round(p.y),p.s,p.s);
+    }
+    ctx.globalAlpha=1;
+    endRaf=requestAnimationFrame(frame);
+  }
+  if(endRaf) cancelAnimationFrame(endRaf);
+  frame();
+}
+function stopEndFx(){ if(endRaf){ cancelAnimationFrame(endRaf); endRaf=null; } }
+
+/* =======================================================================
+   6. 屏幕管理
+   ===================================================================== */
+var current='boot';
+function go(name){
+  var el=$('screen-'+name);
+  if(!el) return;
+  var all=document.querySelectorAll('.screen');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('active');
+  el.classList.add('active');
+  current=name;
+  $('hud').classList.toggle('show', name!=='boot');
+  if(name==='hero'){ paintScene('sceneCanvas'); startClouds(); }
+  else { stopClouds(); }
+  if(name==='end'){ paintScene('endSceneCanvas'); startEndFx(); }
+  else { stopEndFx(); }
+  el.scrollTop = 0;
+  if(name==='quests'){ renderGrid(); }
+  if(name==='games'){ renderGames(); }
+  if(name==='game'){ renderGame(); }
+  if(name==='show'){ renderShow(); }
+  if(name==='perf'){ renderPerf(); }
+  if(name==='about'){ renderAbout(); }
+  if(name!=='game') closeZoom();
+  if(name!=='hero') hideSpeech();
+}
+window.addEventListener('resize', function(){
+  heroOff = {}; heroPick.length = 0; hideSpeech();   /* 尺寸变了，小人位置回到默认排布 */
+  if(current==='hero'){ paintScene('sceneCanvas'); startClouds(); }
+  if(current==='end'){ paintScene('endSceneCanvas'); startEndFx(); }
+});
+
+/* =======================================================================
+   7. 任务板
+   ===================================================================== */
+function renderGrid(){
+  var g=$('grid'); g.innerHTML='';
+  STAGES.forEach(function(s,i){
+    var card=document.createElement('div');
+    card.className='card'+(done[s.num]?' done':'');
+    card.setAttribute('tabindex','0');
+    card.innerHTML=
+      '<div class="card-top"><span class="c-num">'+s.num+'</span><span class="c-state">'+(done[s.num]?'已完成 ✓':'未完成')+'</span></div>'+
+      '<canvas class="c-ico" width="16" height="16"></canvas>'+
+      '<div class="c-name">'+s.name+'</div>'+
+      '<div class="c-tag">'+s.tag+'</div>'+
+      '<div class="card-lock" style="background:'+s.color+'"></div>';
+    g.appendChild(card);
+    drawIcon(card.querySelector('.c-ico'), s.icon);
+    card.addEventListener('mouseenter', SFX.hover);
+    card.addEventListener('click', function(){ openStage(i); });
+    card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openStage(i);} });
+  });
+  updateProgress();
+}
+function updateProgress(){
+  var n=doneCount(), total=STAGES.length, pct=Math.round(n/total*100);
+  $('qProgTxt').textContent = n+' / '+total;
+  $('qProgFill').style.width = pct+'%';
+  $('xpFill').style.width = pct+'%';
+  $('hudLv').textContent = ((META.hudLevel)||'')+' · '+n+'/'+total;
+}
+
+/* =======================================================================
+   8. 详情弹窗
+   ===================================================================== */
+var curIdx=-1, galPage=0;
+var GROUP_FIG = [
+  {kind:'pose', cloth:'#e7a7c4', hair:'#6b4a33'},
+  {kind:'pose', cloth:'#5f6f9c'},
+  {kind:'pose', cloth:'#8fd0dd', hair:'#4a3f5c'}
+];
+function figRow(stage, list, cls){
+  stage.innerHTML='';
+  for(var i=0;i<list.length;i++){
+    var it=document.createElement('div'); it.className='mfig-item';
+    var c=document.createElement('canvas');
+    c.className = cls || 'mfig-cv sm';
+    it.appendChild(c);
+    if(list[i].label){
+      var lb=document.createElement('div');
+      lb.className='mfig-lb';
+      lb.textContent=list[i].label;
+      it.appendChild(lb);
+    }
+    stage.appendChild(it);
+    drawFigure(c, list[i].kind, {cloth:list[i].cloth, hair:list[i].hair});
+  }
+}
+function renderFig(s, page){
+  var tabs=$('mGalTabs'), stage=$('mFigStage'), cap=$('mFigCap');
+  tabs.hidden=true; tabs.innerHTML='';
+  if(s.fig==='group'){
+    figRow(stage, GROUP_FIG);
+  } else {
+    figRow(stage, [{kind:s.fig||'sing', cloth:s.cloth}], 'mfig-cv');
+  }
+  cap.textContent = s.figCap || '';
+}
+
+/* ---- 才艺展示：整页 + 每位同学单独整页 ---- */
+function showIdx(){
+  for(var i=0;i<STAGES.length;i++){ if(STAGES[i].fullPage) return i; }
+  return -1;
+}
+function aboutIdx(){
+  for(var i=0;i<STAGES.length;i++){ if(STAGES[i].aboutPage) return i; }
+  return -1;
+}
+function renderShow(){
+  var gi=showIdx(); if(gi<0) return;
+  var s=STAGES[gi];
+  $('showIntro').textContent = s.desc;
+  $('showCount').textContent = s.gallery.length + (((UI.show||{}).countSuffix)||' 个节目');
+  var g=$('showGrid'); g.innerHTML='';
+  s.gallery.forEach(function(a,i){
+    var d=document.createElement('div');
+    d.className='scard'; d.setAttribute('tabindex','0');
+    d.innerHTML='<div class="sstage"><span class="sno">0'+(i+1)+'</span><canvas class="sfig"></canvas></div>'+
+                '<div class="sname">'+a.name+'</div>'+
+                '<div class="srole">'+a.role+'</div>'+
+                '<div class="smore">'+(((UI.show||{}).more)||'')+'</div>';
+    g.appendChild(d);
+    drawFigure(d.querySelector('.sfig'), a.kind, {cloth:a.cloth, hair:a.hair});
+    d.addEventListener('mouseenter', SFX.hover);
+    d.addEventListener('click', function(){ openPerf(i); });
+    d.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openPerf(i);} });
+  });
+  var isDone=!!done[s.num];
+  $('btnShowDone').textContent = isDone ? UNDO_TXT : DONE_TXT;
+}
+
+/* ---- 单人整页 ---- */
+var curPerf = 0;
+function openPerf(i){
+  var gi=showIdx(); if(gi<0) return;
+  var g=STAGES[gi].gallery; if(!g || !g.length) return;
+  curPerf = ((i % g.length) + g.length) % g.length;
+  SFX.open(); go('perf');
+}
+function pad2(n){ return n<10 ? '0'+n : ''+n; }
+function renderPerf(){
+  var gi=showIdx(); if(gi<0) return;
+  var s=STAGES[gi], g=s.gallery;
+  var a=g[curPerf]; if(!a) return;
+  $('perfKicker').textContent = tpl((UI.show||{}).kicker, {num:s.num});
+  $('perfTitle').textContent = a.name;
+  $('perfNo').textContent = pad2(curPerf+1);
+  $('perfName').textContent = a.name;
+  $('perfRole').textContent = a.role;
+  $('perfRoleTop').textContent = a.role;
+  $('perfIdxTxt').textContent = pad2(curPerf+1)+' / '+pad2(g.length);
+  $('perfFill').style.width = Math.round((curPerf+1)/g.length*100)+'%';
+  $('perfDesc').textContent = a.desc || '';
+  drawFigure($('perfFig'), a.kind, {cloth:a.cloth, hair:a.hair});
+  var ch=$('perfChips'); ch.innerHTML='';
+  (a.chips||[]).forEach(function(c){
+    var d=document.createElement('div');
+    d.className='chip';
+    d.innerHTML='<span>'+c[0]+'</span>'+c[1];
+    ch.appendChild(d);
+  });
+  var nav=$('perfNav'); nav.innerHTML='';
+  g.forEach(function(it,j){
+    var d=document.createElement('div');
+    d.className='pnav'+(j===curPerf?' on':''); d.setAttribute('tabindex','0');
+    d.innerHTML='<canvas></canvas><b>'+it.name+'</b>';
+    nav.appendChild(d);
+    drawFigure(d.querySelector('canvas'), it.kind, {cloth:it.cloth, hair:it.hair});
+    d.addEventListener('mouseenter', SFX.hover);
+    d.addEventListener('click', function(){ openPerf(j); });
+    d.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openPerf(j);} });
+  });
+}
+
+/* ---- 协会介绍整页 ---- */
+function keyRow(el, arr, hot, label){
+  var box=$(el); if(!box) return;
+  box.innerHTML='';
+  if(label){
+    var s=document.createElement('span'); s.className='akey-lab'; s.textContent=label;
+    box.appendChild(s);
+  }
+  (arr||[]).forEach(function(t){
+    var d=document.createElement('div');
+    d.className='akey'+(hot?' hot':''); d.textContent=t;
+    box.appendChild(d);
+  });
+}
+function renderAbout(){
+  var ai=aboutIdx(); if(ai<0) return;
+  var ab=STAGES[ai].about; if(!ab) return;
+  $('aboutLead').textContent = ab.lead;
+  $('aboutBody1').textContent = ab.body[0];
+  $('aboutBody2').textContent = ab.body[1];
+  keyRow('aboutIdeas', ab.ideas, false, '理念');
+  keyRow('aboutKeys',  ab.keys,  true,  '招新');
+  var f=$('aboutFields'); f.innerHTML='';
+  (ab.fields||[]).forEach(function(t){
+    var d=document.createElement('div'); d.className='field'; d.textContent=t; f.appendChild(d);
+  });
+  var dp=$('aboutDepts'); dp.innerHTML='';
+  (ab.depts||[]).forEach(function(t){
+    var d=document.createElement('div'); d.className='dept';
+    d.innerHTML='<canvas></canvas><b>'+t.name+'</b><i>'+(t.kws||[]).join(' · ')+'</i>';
+    dp.appendChild(d);
+    drawIcon(d.querySelector('canvas'), t.icon);
+  });
+  var isDone=!!done[STAGES[ai].num];
+  $('btnAboutDone').textContent = isDone ? UNDO_TXT : DONE_TXT;
+}
+
+/* ---- 趣味互动游戏：整页 + 每个游戏单独整页 ---- */
+function gameIdx(){
+  for(var i=0;i<STAGES.length;i++){ if(STAGES[i].gamePage) return i; }
+  return -1;
+}
+var curGame = 0;
+
+function openGame(i){
+  var gi=gameIdx(); if(gi<0) return;
+  var g=STAGES[gi].games; if(!g || !g.length) return;
+  curGame = ((i % g.length) + g.length) % g.length;
+  zoomDraw = null; closeZoom();
+  SFX.open(); go('game');
+}
+
+function renderGames(){
+  var gi=gameIdx(); if(gi<0) return;
+  var s=STAGES[gi], g=s.games||[];
+  $('gamesIntro').textContent = s.desc;
+  $('gamesCount').textContent = g.length + (((UI.games||{}).countSuffix)||' 个游戏');
+  var box=$('gamesGrid'); box.innerHTML='';
+  g.forEach(function(a,i){
+    var d=document.createElement('div');
+    d.className='gcard'; d.setAttribute('tabindex','0');
+    d.innerHTML='<div class="gstage"><span class="sno">0'+(i+1)+'</span><canvas class="gico"></canvas></div>'+
+                '<div class="gname">'+a.name+'</div>'+
+                '<div class="gsub">'+a.sub+'</div>'+
+                '<div class="gmore">'+(((UI.games||{}).more)||'')+'</div>';
+    box.appendChild(d);
+    drawIcon(d.querySelector('.gico'), a.icon);
+    d.addEventListener('mouseenter', SFX.hover);
+    d.addEventListener('click', function(){ openGame(i); });
+    d.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openGame(i);} });
+  });
+  $('btnGamesDone').textContent = done[s.num] ? UNDO_TXT : DONE_TXT;
+}
+
+function renderGame(){
+  var gi=gameIdx(); if(gi<0) return;
+  var s=STAGES[gi], g=s.games||[];
+  var a=g[curGame]; if(!a) return;
+  $('gameKicker').textContent = tpl((UI.game||{}).kicker, {num:s.num});
+  $('gameTitle').textContent  = s.name;
+  $('gameSubTop').textContent = a.name;
+  $('gameIdxTxt').textContent = pad2(curGame+1)+' / '+pad2(g.length);
+  $('gameFill').style.width   = Math.round((curGame+1)/g.length*100)+'%';
+  drawIcon($('gIcon'), a.icon);
+  $('gTitle').textContent    = a.name;
+  $('gSubtitle').textContent = a.sub;
+  $('gDesc').textContent     = a.desc;
+  var st=$('gSteps'); st.innerHTML='';
+  (a.steps||[]).forEach(function(t){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="bullet" style="background:#a9dd77"></span><span>'+t+'</span>';
+    st.appendChild(li);
+  });
+  var ch=$('gChips'); ch.innerHTML='';
+  (a.chips||[]).forEach(function(c){
+    var d=document.createElement('div'); d.className='chip';
+    d.innerHTML='<span>'+c[0]+'</span>'+c[1];
+    ch.appendChild(d);
+  });
+  var nav=$('gNav'); nav.innerHTML='';
+  g.forEach(function(it,j){
+    var d=document.createElement('div');
+    d.className='gnavbtn'+(j===curGame?' on':''); d.setAttribute('tabindex','0');
+    d.innerHTML='<canvas></canvas><b>'+it.name+'</b>';
+    nav.appendChild(d);
+    drawIcon(d.querySelector('canvas'), it.icon);
+    d.addEventListener('mouseenter', SFX.hover);
+    d.addEventListener('click', function(){ openGame(j); });
+    d.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openGame(j);} });
+  });
+  buildPlay(a);
+}
+
+/* ---------- 现场演示区 ---------- */
+function buildPlay(a){
+  var box=$('gPlay');
+  if(a.id==='quiz')         playQuiz(box);
+  else if(a.id==='mouth')   playMouth(box);
+  else if(a.id==='garden')  playGarden(box);
+  else                      playReverse(box);
+}
+
+/* 猜成语 */
+/* 猜成语题库见 content/*.json 的 CFG.quiz */
+var quizCur = 0, quizOn = false, quizSeen = {};
+function playQuiz(box){
+  var n = QUIZ.length, q = QUIZ[quizCur];
+  var dots = '';
+  for(var i=0;i<n;i++){
+    dots += '<span class="qdot'+(i===quizCur?' on':'')+(quizSeen[i]&&i!==quizCur?' seen':'')+'" data-q="'+i+'"></span>';
+  }
+  box.innerHTML =
+    '<div class="play-h">现场猜一猜 · 先让台下抢答</div>'+
+    '<div class="play-stage">'+
+      '<div class="play-lb">第 '+pad2(quizCur+1)+' 题 · 共 '+pad2(n)+' 题</div>'+
+      '<div class="quiz-emo">'+q.e+'</div>'+
+      '<div class="quiz-ans'+(quizOn?' on':'')+'">'+q.a+'</div>'+
+      '<div class="play-sm">'+(quizOn?'答案揭晓 ✓':'猜不出来再点「揭晓答案」')+'</div>'+
+      '<div class="quiz-dots">'+dots+'</div>'+
+    '</div>'+
+    '<div class="play-btns">'+
+      '<button class="pbtn ghost sm" id="btnQuizPrev">上一题</button>'+
+      '<button class="pbtn sm" id="btnQuizShow">'+(quizOn?'收起答案':'揭晓答案')+'</button>'+
+      '<button class="pbtn ghost sm" id="btnQuizNext">下一题</button>'+
+    '</div>';
+  $('btnQuizPrev').addEventListener('click', function(){ SFX.hover(); gotoQuiz(quizCur-1); });
+  $('btnQuizNext').addEventListener('click', function(){ SFX.hover(); gotoQuiz(quizCur+1); });
+  $('btnQuizShow').addEventListener('click', function(){ SFX.click(); quizOn=!quizOn; playQuiz(box); });
+  Array.prototype.forEach.call(box.querySelectorAll('.qdot'), function(d){
+    d.addEventListener('click', function(){ SFX.hover(); gotoQuiz(+d.getAttribute('data-q')); });
+  });
+  zoomDraw = zoomQuiz;
+  bindZoom(box.querySelector('.play-stage'));
+}
+function gotoQuiz(i){
+  var n=QUIZ.length;
+  if(quizOn) quizSeen[quizCur]=1;
+  quizCur = ((i%n)+n)%n; quizOn=false;
+  playQuiz($('gPlay'));
+}
+
+/* 心口不一 */
+var mouthSay = 0, mouthPick = 0;
+function playMouth(box){
+  if(!mouthSay){ mouthSay = 1 + Math.floor(Math.random()*5); }
+  var s = mouthSay, p = mouthPick, res;
+  if(!p){
+    res = '<div class="play-sm">点一个数字，当作你「手指比出来的数」</div>';
+  } else if(p === s){
+    res = '<div class="play-mid play-bad">嘴上说 '+s+'，手指也比 '+s+'<br>—— 撞了！接受惩罚 🎤</div>';
+  } else {
+    res = '<div class="play-mid play-ok">嘴上说 '+s+'，手指比 '+p+'<br>—— 过关，下一位 ✓</div>';
+  }
+  var nums='';
+  for(var i=1;i<=5;i++){
+    nums += '<button class="numbtn'+(p===i?' on':'')+'" data-n="'+i+'">'+i+'</button>';
+  }
+  box.innerHTML =
+    '<div class="play-h">试一把 · 嘴和手不能一样</div>'+
+    '<div class="play-stage">'+
+      '<div class="play-lb">嘴上要说的是</div>'+
+      '<div class="play-big">'+s+'</div>'+
+      res+
+      '<div class="numgrid">'+nums+'</div>'+
+    '</div>'+
+    '<div class="play-btns"><button class="pbtn sm" id="btnMouthNew">换一个数</button></div>';
+  Array.prototype.forEach.call(box.querySelectorAll('.numbtn'), function(d){
+    d.addEventListener('click', function(){ SFX.click(); mouthPick = +d.getAttribute('data-n'); playMouth(box); });
+  });
+  $('btnMouthNew').addEventListener('click', function(){
+    SFX.hover();
+    mouthSay = 1 + Math.floor(Math.random()*5); mouthPick = 0;
+    playMouth(box);
+  });
+  zoomDraw = zoomMouth;
+  bindZoom(box.querySelector('.play-stage'));
+}
+
+/* 逛三园 */
+/* 逛三园题库见 content/*.json 的 CFG.gardens */
+var gardenCur = -1;
+function playGarden(box){
+  var g = gardenCur >= 0 ? GARDENS[gardenCur] : null;
+  var body;
+  if(!g){
+    body = '<div class="play-mid">星期天，逛三园，什么园？</div>'+
+           '<div class="play-sm">点下面的按钮，抽一个园出来</div>';
+  } else {
+    body = '<div class="play-lb">第一个人说「什么园」</div>'+
+           '<div class="play-big">'+g.n+'</div>'+
+           '<div class="play-sm">后面接着说这个园里有的东西，比如</div>'+
+           '<div class="gtags">'+ g.items.map(function(t){ return '<span class="gtag hot">'+t+'</span>'; }).join('') +'</div>'+
+           '<div class="play-sm">轮到的人不能重复，也别说太慢</div>';
+  }
+  box.innerHTML =
+    '<div class="play-h">抽一个园 · 现场接龙</div>'+
+    '<div class="play-stage">'+body+'</div>'+
+    '<div class="play-btns">'+
+      '<button class="pbtn sm" id="btnGardenGo">'+(g?'再抽一个园':'抽一个园')+'</button>'+
+    '</div>';
+  $('btnGardenGo').addEventListener('click', function(){
+    SFX.click();
+    var k = Math.floor(Math.random()*GARDENS.length);
+    if(k === gardenCur) k = (k+1) % GARDENS.length;
+    gardenCur = k;
+    playGarden(box);
+  });
+  zoomDraw = zoomGarden;
+  bindZoom(box.querySelector('.play-stage'));
+}
+
+/* 反向指令 */
+/* 反向指令题库见 content/*.json 的 CFG.commands */
+var revCur = -1, revOn = false;
+function playReverse(box){
+  var c = revCur >= 0 ? CMDS[revCur] : null;
+  var body;
+  if(!c){
+    body = '<div class="play-mid">点下面的按钮<br>主持人发一条指令</div>'+
+           '<div class="play-sm">所有人必须做相反的动作</div>';
+  } else if(!revOn){
+    body = '<div class="play-lb">主持人说</div>'+
+           '<div class="play-big">'+c[0]+'</div>'+
+           '<div class="play-sm">台下要做什么才算对？</div>';
+  } else {
+    body = '<div class="play-lb">主持人说「'+c[0]+'」· 正确动作</div>'+
+           '<div class="play-big play-ok">'+c[1]+'</div>'+
+           '<div class="play-sm">做错的人淘汰，最后剩下的获胜</div>';
+  }
+  box.innerHTML =
+    '<div class="play-h">发一条指令 · 反着做</div>'+
+    '<div class="play-stage">'+body+'</div>'+
+    '<div class="play-btns">'+
+      (c ? '<button class="pbtn ghost sm" id="btnRevShow">'+(revOn?'收起动作':'揭晓正确动作')+'</button>' : '')+
+      '<button class="pbtn sm" id="btnRevGo">'+(c?'下一条指令':'发一条指令')+'</button>'+
+    '</div>';
+  $('btnRevGo').addEventListener('click', function(){
+    SFX.click();
+    var k = Math.floor(Math.random()*CMDS.length);
+    if(k === revCur) k = (k+1) % CMDS.length;
+    revCur = k; revOn = false;
+    playReverse(box);
+  });
+  if($('btnRevShow')) $('btnRevShow').addEventListener('click', function(){
+    SFX.hover(); revOn = !revOn; playReverse(box);
+  });
+  zoomDraw = zoomReverse;
+  bindZoom(box.querySelector('.play-stage'));
+}
+
+/* ---------- 演示放大（大屏展示） ---------- */
+var zoomDraw = null, zoomOn = false;
+function bindZoom(stage){
+  if(!stage) return;
+  stage.setAttribute('tabindex','0');
+  stage.setAttribute('title','点一下放大展示');
+  stage.addEventListener('click', function(e){
+    var t = e.target;
+    if(t && t.closest && t.closest('button,.qdot')) return;   /* 让下方按钮/圆点照常工作 */
+    openZoom();
+  });
+  stage.addEventListener('keydown', function(e){
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openZoom(); }
+  });
+}
+function openZoom(){
+  if(!zoomDraw) return;
+  $('zoomModal').classList.add('show');
+  zoomOn = true;
+  SFX.open();
+  zoomDraw();
+}
+function closeZoom(){
+  if(!zoomOn) return;
+  $('zoomModal').classList.remove('show');
+  zoomOn = false;
+}
+
+/* 猜成语 · 放大 */
+function zoomQuiz(){
+  var n=QUIZ.length, q=QUIZ[quizCur];
+  $('zoomTag').textContent = '猜成语 · 第 '+pad2(quizCur+1)+' / '+pad2(n)+' 题';
+  $('zoomStage').innerHTML =
+    '<div class="zoom-lb">第 '+pad2(quizCur+1)+' 题 · 共 '+pad2(n)+' 题</div>'+
+    '<div class="zoom-emo">'+q.e+'</div>'+
+    '<div class="zoom-ans'+(quizOn?' on':'')+'">'+q.a+'</div>'+
+    '<div class="zoom-sm">'+(quizOn?'答案揭晓 ✓':'猜不出来再点「揭晓答案」')+'</div>'+
+    '<div class="zoom-btns">'+
+      '<button class="pbtn ghost sm" id="zQuizPrev">上一题</button>'+
+      '<button class="pbtn sm" id="zQuizShow">'+(quizOn?'收起答案':'揭晓答案')+'</button>'+
+      '<button class="pbtn ghost sm" id="zQuizNext">下一题</button>'+
+    '</div>';
+  $('zQuizPrev').addEventListener('click', function(){ SFX.hover(); gotoQuiz(quizCur-1); zoomQuiz(); });
+  $('zQuizNext').addEventListener('click', function(){ SFX.hover(); gotoQuiz(quizCur+1); zoomQuiz(); });
+  $('zQuizShow').addEventListener('click', function(){ SFX.click(); quizOn=!quizOn; playQuiz($('gPlay')); zoomQuiz(); });
+}
+
+/* 心口不一 · 放大 */
+function zoomMouth(){
+  var s=mouthSay, p=mouthPick, res;
+  if(!p)          res = '<div class="zoom-sm">点一个数字，当作你「手指比出来的数」</div>';
+  else if(p === s) res = '<div class="zoom-mid play-bad">嘴上说 '+s+'，手指也比 '+s+'<br>—— 撞了！接受惩罚 🎤</div>';
+  else             res = '<div class="zoom-mid play-ok">嘴上说 '+s+'，手指比 '+p+'<br>—— 过关，下一位 ✓</div>';
+  var nums='';
+  for(var i=1;i<=5;i++) nums += '<button class="zoom-numbtn'+(p===i?' on':'')+'" data-zn="'+i+'">'+i+'</button>';
+  $('zoomTag').textContent = '心口不一 · 嘴和手不能一样';
+  $('zoomStage').innerHTML =
+    '<div class="zoom-lb">嘴上要说的是</div>'+
+    '<div class="zoom-big">'+s+'</div>'+
+    res+
+    '<div class="zoom-numgrid">'+nums+'</div>';
+  Array.prototype.forEach.call($('zoomStage').querySelectorAll('.zoom-numbtn'), function(d){
+    d.addEventListener('click', function(){
+      SFX.click(); mouthPick = +d.getAttribute('data-zn'); playMouth($('gPlay')); zoomMouth();
+    });
+  });
+}
+
+/* 逛三园 · 放大 */
+function zoomGarden(){
+  var g = gardenCur >= 0 ? GARDENS[gardenCur] : null, body;
+  if(!g){
+    body = '<div class="zoom-mid">星期天，逛三园，什么园？</div>'+
+           '<div class="zoom-sm">点下面的按钮，抽一个园出来</div>';
+  } else {
+    body = '<div class="zoom-lb">第一个人说「什么园」</div>'+
+           '<div class="zoom-big">'+g.n+'</div>'+
+           '<div class="zoom-sm">后面接着说这个园里有的东西，比如</div>'+
+           '<div class="gtags">'+ g.items.map(function(t){ return '<span class="gtag hot">'+t+'</span>'; }).join('') +'</div>';
+  }
+  $('zoomTag').textContent = '逛三园 · 现场接龙';
+  $('zoomStage').innerHTML = body+
+    '<div class="zoom-btns"><button class="pbtn sm" id="zGardenGo">'+(g?'再抽一个园':'抽一个园')+'</button></div>';
+  $('zGardenGo').addEventListener('click', function(){
+    SFX.click();
+    var k = Math.floor(Math.random()*GARDENS.length);
+    if(k === gardenCur) k = (k+1) % GARDENS.length;
+    gardenCur = k;
+    playGarden($('gPlay')); zoomGarden();
+  });
+}
+
+/* 反向指令 · 放大 */
+function zoomReverse(){
+  var c = revCur >= 0 ? CMDS[revCur] : null, body;
+  if(!c){
+    body = '<div class="zoom-mid">点下面的按钮<br>主持人发一条指令</div>'+
+           '<div class="zoom-sm">所有人必须做相反的动作</div>';
+  } else if(!revOn){
+    body = '<div class="zoom-lb">主持人说</div>'+
+           '<div class="zoom-big">'+c[0]+'</div>'+
+           '<div class="zoom-sm">台下要做什么才算对？</div>';
+  } else {
+    body = '<div class="zoom-lb">主持人说「'+c[0]+'」· 正确动作</div>'+
+           '<div class="zoom-big play-ok">'+c[1]+'</div>'+
+           '<div class="zoom-sm">做错的人淘汰，最后剩下的获胜</div>';
+  }
+  $('zoomTag').textContent = '反向指令 · 反着做';
+  $('zoomStage').innerHTML = body+
+    '<div class="zoom-btns">'+
+      (c ? '<button class="pbtn ghost sm" id="zRevShow">'+(revOn?'收起动作':'揭晓正确动作')+'</button>' : '')+
+      '<button class="pbtn sm" id="zRevGo">'+(c?'下一条指令':'发一条指令')+'</button>'+
+    '</div>';
+  $('zRevGo').addEventListener('click', function(){
+    SFX.click();
+    var k = Math.floor(Math.random()*CMDS.length);
+    if(k === revCur) k = (k+1) % CMDS.length;
+    revCur = k; revOn = false;
+    playReverse($('gPlay')); zoomReverse();
+  });
+  if($('zRevShow')) $('zRevShow').addEventListener('click', function(){
+    SFX.hover(); revOn = !revOn; playReverse($('gPlay')); zoomReverse();
+  });
+}
+
+function openStage(i){
+  var s=STAGES[i]; if(!s) return;
+  if(s.aboutPage){ curIdx=i; SFX.open(); go('about'); return; }
+  if(s.gamePage){ curIdx=i; SFX.open(); go('games'); return; }
+  if(s.fullPage){ curIdx=i; SFX.open(); go('show'); return; }
+  curIdx=i;
+  drawIcon($('mIcon'), s.icon);
+  $('mNum').textContent=((UI.modal||{}).numPrefix||'环节 ')+s.num;
+  $('mName').textContent=s.name;
+  $('mTag').textContent=s.tag;
+  $('mDesc').textContent=s.desc;
+  renderFig(s, 0);
+  var ul=$('mList'); ul.innerHTML='';
+  s.list.forEach(function(t){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="bullet" style="background:'+s.color+'"></span><span>'+t+'</span>';
+    ul.appendChild(li);
+  });
+  var ch=$('mChips'); ch.innerHTML='';
+  s.chips.forEach(function(c){
+    var d=document.createElement('div');
+    d.className='chip';
+    d.innerHTML='<span>'+c[0]+'</span>'+c[1];
+    ch.appendChild(d);
+  });
+  var isDone=!!done[s.num];
+  $('mStamp').classList.toggle('on', isDone);
+  $('mDone').textContent = isDone ? UNDO_TXT : DONE_TXT;
+  $('modal').classList.add('show');
+  SFX.open();
+}
+function closeModal(){ $('modal').classList.remove('show'); }
+function toggleDone(){
+  var s=STAGES[curIdx]; if(!s) return;
+  if(done[s.num]){ delete done[s.num]; }
+  else { done[s.num]=1; SFX.done(); toast(tpl((UI.toast||{}).stageDone, {name:s.name})); }
+  saveDone();
+  var isDone=!!done[s.num];
+  $('mStamp').classList.toggle('on', isDone);
+  $('mDone').textContent = isDone ? UNDO_TXT : DONE_TXT;
+  renderGrid();
+  if(doneCount()===STAGES.length){
+    setTimeout(function(){ toast((UI.toast||{}).allDone); }, 500);
+  }
+}
+
+/* =======================================================================
+   9. Toast
+   ===================================================================== */
+var toastTimer=null;
+function toast(msg){
+  var t=$('toast'); t.textContent=msg; t.classList.add('show');
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); }, 2400);
+}
+
+/* =======================================================================
+   10. 启动流程
+   ===================================================================== */
+function boot(){
+  drawAvatar($('avatarBox'));
+  drawIcon($('bootIcon'),'building');
+  // 启动画面里的小美术
+  (function(){
+    var cv=$('bootArt'); cv.width=48; cv.height=48;
+    var ctx=cv.getContext('2d'); ctx.imageSmoothingEnabled=false;
+    rect(ctx,0,0,48,48,'#eaf3fa');
+    rect(ctx,0,34,48,14,'#a7cf82');
+    drawCloudShape(ctx,2,4,1.2,1);
+    // 小建筑
+    rect(ctx,17,14,14,20,'#fbf3e6');
+    rect(ctx,15,12,18,3,'#c9b6dd');
+    rect(ctx,22,7,4,5,'#c9b6dd');
+    rect(ctx,23,4,2,3,'#8a5f3c');
+    rect(ctx,26,4,5,2,'#e07a9a');
+    for(var i=0;i<3;i++) rect(ctx,19+i*5,18,2,16,'#e6d8c2');
+    rect(ctx,22,26,5,8,'#7d5c3c');
+    // 树
+    rect(ctx,7,26,2,8,'#8a6a4a'); rect(ctx,4,20,8,7,'#7fb069');
+    rect(ctx,39,28,2,6,'#8a6a4a'); rect(ctx,36,23,8,7,'#6d9d59');
+  })();
+
+  var logs = (((CFG.boot||{}).logLines)||[]).map(function(s){ return tpl(s, {n:STAGES.length}); });
+  var p=0, li=0;
+  $('bootL2').textContent = tpl((CFG.boot||{}).line2, {n:STAGES.length});
+  var timer=setInterval(function(){
+    p += 1.8 + Math.random()*4.2;
+    if(p>100) p=100;
+    $('loadFill').style.width=p+'%';
+    $('loadPct').textContent=Math.round(p)+' %';
+    var idx=Math.min(logs.length-1, Math.floor(p/26));
+    if(idx!==li){ li=idx; SFX.boot(); }
+    $('bootLog').textContent=logs[idx];
+    if(p>=100){
+      clearInterval(timer);
+      setTimeout(function(){ go('hero'); SFX.start(); }, 700);
+    }
+  }, 92);
+}
+
+/* =======================================================================
+   11. 事件绑定
+   ===================================================================== */
+$('btnStart').addEventListener('click', function(){ SFX.click(); go('quests'); });
+$('btnBackHero').addEventListener('click', function(){ SFX.click(); go('hero'); });
+$('btnEnding').addEventListener('click', function(){ SFX.click(); $('endLine').textContent = tpl((UI.end||{}).line, {done:doneCount(), total:STAGES.length}); go('end'); });
+$('btnBackBoard').addEventListener('click', function(){ SFX.click(); go('quests'); });
+$('btnShowBack').addEventListener('click', function(){ SFX.click(); go('quests'); });
+$('btnPerfBack').addEventListener('click', function(){ SFX.click(); go('show'); });
+$('btnPerfPrev').addEventListener('click', function(){ openPerf(curPerf-1); });
+$('btnPerfNext').addEventListener('click', function(){ openPerf(curPerf+1); });
+$('btnAboutBack').addEventListener('click', function(){ SFX.click(); go('quests'); });
+$('btnGamesBack').addEventListener('click', function(){ SFX.click(); go('quests'); });
+$('btnGamesDone').addEventListener('click', function(){
+  SFX.click();
+  var gi=gameIdx(); if(gi<0) return;
+  curIdx=gi; toggleDone();
+  var s=STAGES[gi];
+  $('btnGamesDone').textContent = done[s.num] ? UNDO_TXT : DONE_TXT;
+});
+$('btnGameBack').addEventListener('click', function(){ SFX.click(); go('games'); });
+$('btnGamePrev').addEventListener('click', function(){ openGame(curGame-1); });
+$('btnGameNext').addEventListener('click', function(){ openGame(curGame+1); });
+$('btnAboutDone').addEventListener('click', function(){
+  SFX.click();
+  var ai=aboutIdx(); if(ai<0) return;
+  curIdx=ai; toggleDone();
+  var s=STAGES[ai];
+  $('btnAboutDone').textContent = done[s.num] ? UNDO_TXT : DONE_TXT;
+});
+$('btnShowDone').addEventListener('click', function(){
+  SFX.click();
+  var gi=showIdx(); if(gi<0) return;
+  curIdx=gi; toggleDone();
+  var s=STAGES[gi];
+  $('btnShowDone').textContent = done[s.num] ? UNDO_TXT : DONE_TXT;
+});
+$('btnAgain').addEventListener('click', function(){ SFX.click(); resetAll(); go('quests'); toast((UI.toast||{}).reset); });
+
+$('mClose').addEventListener('click', function(){ SFX.click(); closeModal(); });
+$('mDone').addEventListener('click', function(){ SFX.click(); toggleDone(); });
+$('modal').addEventListener('click', function(e){ if(e.target===$('modal')) closeModal(); });
+
+$('btnHelp').addEventListener('click', function(){ SFX.click(); $('helpModal').classList.add('show'); });
+$('helpClose').addEventListener('click', function(){ SFX.click(); $('helpModal').classList.remove('show'); });
+$('helpModal').addEventListener('click', function(e){ if(e.target===$('helpModal')) $('helpModal').classList.remove('show'); });
+
+function renderSoundIcon(){
+  $('btnSound').innerHTML = audio.on
+    ? '<svg viewBox="0 0 16 16"><path d="M2 6h2l3-3v10l-3-3H2z" fill="#2b2f4a"/><path d="M9 5.5c1.2.8 1.2 4.2 0 5M11 3.5c2.2 1.4 2.2 7.6 0 9" stroke="#2b2f4a" stroke-width="1.4" fill="none"/></svg>'
+    : '<svg viewBox="0 0 16 16"><path d="M2 6h2l3-3v10l-3-3H2z" fill="#9aa0b8"/><path d="M9.5 5.5l5 5M14.5 5.5l-5 5" stroke="#9aa0b8" stroke-width="1.4" fill="none"/></svg>';
+}
+$('btnSound').addEventListener('click', function(){
+  audio.on = !audio.on;
+  renderSoundIcon();
+  if(audio.on){ ac(); SFX.click(); }
+  toast(audio.on?((UI.toast||{}).soundOn):((UI.toast||{}).soundOff));
+});
+$('btnReset').addEventListener('click', function(){
+  SFX.click(); resetAll(); renderGrid(); toast((UI.toast||{}).reset);
+});
+function resetAll(){ done={}; saveDone(); curIdx=-1; updateProgress(); }
+
+$('zoomClose').addEventListener('click', function(){ SFX.hover(); closeZoom(); });
+$('zoomModal').addEventListener('click', function(e){ if(e.target === this) closeZoom(); });
+
+document.addEventListener('keydown', function(e){
+  var modalOpen = $('modal').classList.contains('show');
+  var helpOpen = $('helpModal').classList.contains('show');
+  if(e.key==='Escape'){
+    if(zoomOn){ closeZoom(); return; }
+    if(helpOpen){ $('helpModal').classList.remove('show'); return; }
+    if(modalOpen){ closeModal(); return; }
+    if(current==='game'){ go('games'); return; }
+    if(current==='games'){ go('quests'); return; }
+    if(current==='perf'){ go('show'); return; }
+    if(current==='about'){ go('quests'); return; }
+    if(current==='show'){ go('quests'); return; }
+    if(current==='quests'){ go('hero'); return; }
+  }
+  if(zoomOn) return;               /* 放大浮层打开时，其它快捷键不抢焦点 */
+  if(helpOpen) return;
+  if(e.key==='m'||e.key==='M'){ $('btnSound').click(); return; }
+  if(e.key==='r'||e.key==='R'){ if(!modalOpen){ $('btnReset').click(); } return; }
+  if(current==='game'){
+    if(e.key==='ArrowRight'){ e.preventDefault(); openGame(curGame+1); return; }
+    if(e.key==='ArrowLeft'){ e.preventDefault(); openGame(curGame-1); return; }
+    if(e.key==='Enter'){ e.preventDefault(); go('games'); return; }
+    return;
+  }
+  if(current==='games'){
+    if(e.key==='Enter'){ e.preventDefault(); $('btnGamesDone').click(); return; }
+    return;
+  }
+  if(current==='perf'){
+    if(e.key==='ArrowRight'){ e.preventDefault(); openPerf(curPerf+1); return; }
+    if(e.key==='ArrowLeft'){ e.preventDefault(); openPerf(curPerf-1); return; }
+    if(e.key==='Enter'){ e.preventDefault(); go('show'); return; }
+    return;
+  }
+  if(current==='about'){
+    if(e.key==='Enter'){ e.preventDefault(); $('btnAboutDone').click(); return; }
+    return;
+  }
+  if(current==='show'){
+    if(e.key==='Enter'){ e.preventDefault(); $('btnShowDone').click(); return; }
+    return;
+  }
+  if(modalOpen){
+    if(e.key==='ArrowRight' && curIdx<STAGES.length-1){ SFX.hover(); openStage(curIdx+1); }
+    if(e.key==='ArrowLeft' && curIdx>0){ SFX.hover(); openStage(curIdx-1); }
+    if(e.key==='Enter'){ SFX.click(); toggleDone(); }
+    return;
+  }
+  if(current==='boot'||current==='hero'){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); SFX.click(); go('quests'); }
+  }
+});
+document.addEventListener('pointerdown', function(){ ac(); }, {once:true});
+
+/* ---------- 应用 content/*.json 的文案与封面互动 ---------- */
+applyContent();
+initHeroInteraction();
+
+/* ---------- 启动 ---------- */
+renderSoundIcon();
+$('btnHelp').innerHTML = '<svg viewBox="0 0 16 16"><rect x="6" y="2" width="5" height="2" fill="#2b2f4a"/><rect x="9" y="4" width="2" height="3" fill="#2b2f4a"/><rect x="7" y="7" width="2" height="3" fill="#2b2f4a"/><rect x="7" y="11.4" width="2" height="2" fill="#2b2f4a"/></svg>';
+$('btnReset').innerHTML = '<svg viewBox="0 0 16 16"><path d="M12.6 8a4.6 4.6 0 1 1-1.7-3.55" fill="none" stroke="#2b2f4a" stroke-width="2"/><path d="M9.6 1.3 L14.4 3.9 L9.6 6.5 Z" fill="#2b2f4a"/></svg>';
+updateProgress();
+paintScene('sceneCanvas');
+boot();
+
+})();
+</script>
+</body>
+</html>

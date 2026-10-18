@@ -1,0 +1,113 @@
+{
+  "ui": {
+    "quests": {
+      "kicker": "QUEST BOARD",
+      "title": "大会流程",
+      "doneLabel": "已完成",
+      "hint": "点击任意环节查看详情 · 完成后进度会自动保存",
+      "backBtn": "返回封面",
+      "endBtn": "查看结语"
+    },
+    "show": {
+      "kicker": "THE SHOW · 环节 {num}",
+      "title": "才艺展示",
+      "countSuffix": " 个节目",
+      "more": "查看他的页面 ›",
+      "backBtn": "返回流程",
+      "doneBtn": "标记完成",
+      "tip": "点任意一位同学看他的单独页面 · 按 Esc 或点「返回流程」回到大会流程"
+    },
+    "perf": {
+      "castTitle": "其他同学 · CAST",
+      "prevBtn": "上一位",
+      "nextBtn": "下一位",
+      "backBtn": "返回才艺展示",
+      "tip": "按 ← → 切换同学 · 按 Esc 或点「返回才艺展示」回到节目列表"
+    },
+    "about": {
+      "kicker": "ABOUT US · 环节 {num}",
+      "title": "协会介绍",
+      "origin": "黄河科技学院",
+      "deptSuffix": " 个部门",
+      "fieldsTitle": "聚焦领域 · FIELDS",
+      "deptsTitle": "协会部门 · DEPARTMENTS",
+      "ideaLabel": "理念",
+      "keyLabel": "招新",
+      "backBtn": "返回流程",
+      "doneBtn": "标记完成",
+      "tip": "按 Esc 或点「返回流程」回到大会流程"
+    },
+    "games": {
+      "kicker": "THE GAME · 环节 {num}",
+      "title": "趣味互动游戏",
+      "countSuffix": " 个游戏",
+      "more": "看玩法 ›",
+      "backBtn": "返回流程",
+      "doneBtn": "标记完成",
+      "tip": "点任意一个游戏看玩法和现场演示 · 按 Esc 或点「返回流程」回到大会流程"
+    },
+    "game": {
+      "kicker": "THE GAME · 环节 {num}",
+      "moreTitle": "其他游戏 · MORE GAMES",
+      "howTitle": "怎么玩 · HOW TO PLAY",
+      "prevBtn": "上一个",
+      "nextBtn": "下一个",
+      "backBtn": "返回游戏列表",
+      "tip": "按 ← → 切换游戏 · 按 Esc 或点「返回游戏列表」回到游戏列表"
+    },
+    "end": {
+      "title": "谢谢观看",
+      "orgLine": "{org} · 人工智能创新协会",
+      "plateLine": "{date} · 全体大会 · 合影留念",
+      "line": "{done} / {total} 环节已完成",
+      "backBtn": "返回流程",
+      "againBtn": "重新开始"
+    },
+    "modal": {
+      "numPrefix": "环节 ",
+      "stampDone": "已完成 ✓",
+      "closeBtn": "返回",
+      "doneBtn": "标记完成",
+      "undoBtn": "取消完成"
+    },
+    "zoom": {
+      "tag": "放大展示",
+      "closeBtn": "关闭 ✕",
+      "tip": "按 Esc、点窗口外空白处，或点「关闭」退出放大"
+    },
+    "help": {
+      "kicker": "操作说明",
+      "title": "快捷操作",
+      "closeBtn": "知道了",
+      "keys": [
+        [
+          "Enter",
+          "开始 / 确认"
+        ],
+        [
+          "Esc",
+          "关闭窗口 / 返回"
+        ],
+        [
+          "← →",
+          "在环节之间切换"
+        ],
+        [
+          "M",
+          "音效开关"
+        ],
+        [
+          "R",
+          "重置全部进度"
+        ]
+      ]
+    },
+    "toast": {
+      "stageDone": "「{name}」已完成 ✓",
+      "allDone": "全部环节已完成 · 全体大会圆满结束",
+      "reset": "进度已重置",
+      "soundOn": "音效已开启",
+      "soundOff": "音效已静音"
+    }
+  }
+}

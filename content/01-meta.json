@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "htmlTitle": "人工智能创新协会 · {year} 全体大会",
+    "eyebrow": "黄 河 科 技 学 院",
+    "title": "人工智能创新协会",
+    "subtitle": "{year} · 全体大会",
+    "meta": "{date} · {venue} · 全体成员",
+    "startBtn": "START",
+    "startHint": "点击 START · 或按 Enter 开始",
+    "hudName": "协会成员",
+    "hudLevel": "Lv.{year} · 大会进度"
+  },
+  "boot": {
+    "title": "系统提示：大会数据已加载",
+    "badge": "v{year}",
+    "line1": "<b>人工智能创新协会</b> · {year} 全体大会",
+    "line2": "正在载入 {n} 个大会环节与嘉宾信息……",
+    "logLines": [
+      "> 载入嘉宾信息：贾音老师 · 各部门部长 …",
+      "> 载入 {n} 个大会环节 · 校验完成",
+      "> 载入会场地图 · 主会场已就绪",
+      "> 全部数据就绪，欢迎进入。"
+    ]
+  }
+}
